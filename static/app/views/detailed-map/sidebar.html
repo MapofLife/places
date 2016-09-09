@@ -1,0 +1,35 @@
+<div class="sidebar">
+  <div ng-class="row">
+    <div class="name" >
+      <mol-species-images
+        class="pull-right"
+        scrolling="false"
+        ng-show="!$state.params.noimage"
+        size="100" scientificname="species.scientificname"></mol-species-images>
+        <div class="infoCommonName" ng-show="species.common">
+            {{ species.common }}
+        </div>
+        <div class="infoSciName" ng-show="species.scientificname">
+            {{ species.scientificname }}
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-show="types" class="col-md-12"><h5>Sources</h5></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" ng-include="'static/app/views/detailed-map/datasets.html'"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <points-histogram
+      ng-show="types.points.visible&&!$state.params.nofilters"
+      scientificname="species.scientificname"
+      years="year"
+      uncertainty="uncertainty"
+      filters="filters"
+      types="types"
+      limit="filters.points"></points-histogram>
+    </div>
+  </div>
+</div>
