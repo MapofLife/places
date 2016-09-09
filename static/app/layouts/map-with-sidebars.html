@@ -2,7 +2,7 @@
   <div ng-swipe-left="lc=true" ng-swipe-disable-mouse
       ng-show="toggles.sidebars.left&&(!$state.params.embed||$state.params.sidebar)"
       ng-class="{'closed': lc}" class="sidebar-scroll-container left">
-    <div  ng-if="!lc" ui-view="left-sidebar" class="left" ></div>
+    <div  ng-if="!lc" ui-view="region" class="left" ></div>
   </div>
   <i ng-show="toggles.sidebars.left&&($state.current.views['left-sidebar@species']||$state.$current.parent.views['left-sidebar@species'])"
     ng-class="{'fa-chevron-right':lc, 'fa-chevron-left':!lc}"
@@ -16,13 +16,12 @@
      uib-tooltip="{{(rc)?'Show sidebar' : 'Hide sidebar'}}"
      tooltip-placement="left"
      ng-click="rc = !rc; "></i>-->
-  <div class="map-container" ng-include="'static/app/partials/map.html'"></div>
+  <div class="map-container"  ng-include="'static/app/partials/map.html'"></div>
   <div ng-swipe-right="rc=true"
-    ng-swipe-disable-mouse
-  
-    ng-class="{'closed': rc}"
+       ng-swipe-disable-mouse
+       ng-class="{'closed': rc}"
     class="sidebar-scroll-container right">
-    <div ng-if="!rc" ui-view="right-sidebar"  class="right"></div>
+    <div ng-if="!rc" ui-view="taxo-groups"  class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>
 </div>
