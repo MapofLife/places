@@ -1,0 +1,106 @@
+
+<style>
+  .sidebar
+
+  .species-list .thumb {
+    width: 24px; height: 24px;
+    opacity: 1;
+    display:block;
+    float:left;
+
+    z-index: 10000000;
+    transition:all 1s ease;
+  }
+  .species-list .thumb {
+    width: 24px; height: 24px;
+    transition:all 0.8s ease;
+
+  }
+
+  .species-list .thumb-error {
+    width: 24px; height: 24px;
+    background-size:contain;
+    background-image: url('https://mol.org/static/img/groups/taxa_all.png');
+  }
+
+
+
+  .species-list .row {
+    padding: 2px 0px;
+    font-size: 12pt;
+    vertical-align: middle;
+  }
+
+  .species-list .row:hover{
+
+  }
+
+  .species-list .latin {
+    font-style: italic;
+    font-size: -1;
+  }
+
+  .species-list .autocomplete .form-control {
+    max-width:100%;
+  }
+
+</style>
+
+<div class="sidebar species-list">
+  <h3 ng-if="!model.region.name">Click to select a region.</h3><h3
+  ng-if="model.region.name">{{model.selectedGroup.title || "Species"}} expected in the {{model.region.name}} region.</h3>
+  <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
+    <div ng-repeat="group in model.taxogroups | orderBy:'sortby' ">
+      <h3 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined"
+         class="clickable">{{group.count | number}}&nbsp;{{group.title}}</h3>
+    </div>
+  </div>
+  <div
+       ng-show="model.region.name && model.selectedGroup !== undefined ">
+      <div class=row>
+      <div class="col-md-6"><button ng-click="model.selectedGroup = undefined"
+        class="btn btn-default clickable">Back to all groups</button></div>
+        <div class="col-md-6"><input
+        type="text" class="form-control" placeholder="Search species" ng-model="term"></div>
+      </div>
+      <ul
+          uib-pagination
+          total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length"
+          items-per-page="pageSize"
+          force-ellipses="true"
+          max-size="4"
+          ng-model="page" ></ul>
+      <div class="container">
+        <div  ng-repeat="family in model.selectedGroup.species
+            | filterBy: ['common', 'scientificname'] : term
+            | orderBy:'sequenceid'
+            | limitTo:pageSize:((page-1)*pageSize)
+            | groupBy:'family_common'
+            | toArray:true
+             ">
+          <h4 class="clickable">{{(family.$key !== 'null')?family.$key:'Family N/A'}}</h4>
+          <div class="row clickable"
+            ng-repeat="s in family"
+            ng-click="mapSpecies(s)">
+            <div class="col-md-2">
+              <div ng-class="{'thumb-error':h}">
+                <img
+                align="left"
+                class="thumb"
+                ng-hide="h || !s.image_url ++ s.image_url === 'null'"
+                ng-src="{{(s.image_url) ? s.image_url + '=s24-c' :
+                  'https://mol.org/static/img/groups/taxa_'
+                    + groups.available[groups.selectedIndex].taxa + '.png' }}"
+                ng-error="h=true;"
+                ></div>
+              </div>
+            <div class="col-md-10">
+              <div class="common">{{s.common}}</div>
+              <div class="latin">{{s.scientificname}}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

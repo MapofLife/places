@@ -19,9 +19,9 @@
   <div class="map-container"  ng-include="'static/app/partials/map.html'"></div>
   <div ng-swipe-right="rc=true"
        ng-swipe-disable-mouse
-       ng-class="{'closed': rc}"
+       ng-class="{'closed': !model.taxogroups}"
     class="sidebar-scroll-container right">
-    <div ng-if="!rc" ui-view="taxo-groups"  class="right"></div>
+    <div ng-if="!rc" ui-view="species"  class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>
 </div>
