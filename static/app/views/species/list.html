@@ -98,10 +98,10 @@
                 class="thumb"
                 uibPopoverHtml="<img src='{{s.image_url}}'>"
 
-                ng-hide="h || !s.image_url ++ s.image_url === 'null'"
+                ng-show="!h"
                 ng-src="{{(s.image_url) ? s.image_url + '=s24-c' :
                   'https://mol.org/static/img/groups/taxa_'
-                    + groups.available[groups.selectedIndex].taxa + '.png' }}"
+                    + model.selectedGroup.taxa + '.png' }}"
                 ng-error="h=true;"
                 ></div>
             </div>
