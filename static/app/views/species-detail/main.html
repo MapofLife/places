@@ -1,4 +1,7 @@
 <div style="margin:10px;">
+  <button
+    ng-click="mapSpecies(species)"
+    class="btn btn-default pull-right">Explore on mol.org</button>
   <h3 class="common">{{species.common || species.commonname}}</h3>
   <h4 class="scientificname"><i>{{species.scientificname}}</i></h4>
   <p>{{species.info[0].content}}</p>
