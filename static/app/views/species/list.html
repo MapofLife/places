@@ -53,7 +53,15 @@
     <button class="btn btn-default" ng-click="downloadCSV()">Download List</button>
     <div ng-repeat="group in model.taxogroups | orderBy:'sortby' ">
       <h3 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined"
-         class="clickable">{{group.count | number}}&nbsp;{{group.title}}</h3>
+         class="clickable">&nbsp;
+         <img
+         align="left"
+         class="thumb"
+         ng-hide="h"
+         ng-src="{{'https://mol.org/static/img/groups/taxa_'
+             + group.taxa + '.png' }}"
+         ng-error="h=true;">
+         {{group.count | number}}&nbsp;{{group.title}}</h3>
     </div>
   </div>
   <div
@@ -71,7 +79,7 @@
           force-ellipses="true"
           max-size="4"
           ng-model="page" ></ul>
-      <div class="container">
+      <div>
         <div  ng-repeat="family in model.selectedGroup.species
             | filterBy: ['common', 'scientificname'] : term
             | orderBy:'sequenceid'
@@ -88,13 +96,15 @@
                 <img
                 align="left"
                 class="thumb"
+                uibPopoverHtml="<img src='{{s.image_url}}'>"
+
                 ng-hide="h || !s.image_url ++ s.image_url === 'null'"
                 ng-src="{{(s.image_url) ? s.image_url + '=s24-c' :
                   'https://mol.org/static/img/groups/taxa_'
                     + groups.available[groups.selectedIndex].taxa + '.png' }}"
                 ng-error="h=true;"
                 ></div>
-              </div>
+            </div>
             <div class="col-md-10">
               <div class="common">{{s.common}}</div>
               <div class="latin">{{s.scientificname}}</div>
