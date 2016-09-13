@@ -55,7 +55,7 @@
         <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
       </div>
       <div class="col-md-6">
-        <button class="btn btn-default" ng-click="downloadCSV()">Download Species List</button>
+        <button class="btn btn-default" ng-click="downloadCSV()">Download full list</button>
       </div>
     </div>
 
@@ -76,12 +76,21 @@
   <div
        ng-show="model.region.name && model.selectedGroup !== undefined ">
       <div class=row>
-      <div class="col-md-6"><button ng-click="model.selectedGroup = undefined"
-        class="btn btn-default clickable">Back to all groups</button></div>
-        <div class="col-md-6"><input
-        type="text" class="form-control" placeholder="Search species" ng-model="term"></div>
+        <div class="col-md-6"><button ng-click="model.selectedGroup = undefined"
+          class="btn btn-default  center-block">Back to all groups</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-default center-block" ng-click="downloadCSV(model.selectedGroup.taxa)">Download group list</button>
+        </div>
       </div>
-      <ul
+      <div class="row">
+        <div class="col-md-12 ">
+          <input
+            style="max-width:250px"
+            type="text" class="form-control  center-block"
+            placeholder="Search species" ng-model="term"></div>
+      </div>
+      <ul 
           uib-pagination
           total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length"
           items-per-page="pageSize"
@@ -114,7 +123,7 @@
                 ng-error="h=true;"
                 ></div>
             </div>
-            <div ng-click="mapSpecies(s)" class="col-md-10">
+            <div class="col-md-10">
               <div class="common">{{s.common}}</div>
               <div class="latin">{{s.scientificname}}</div>
             </div>
