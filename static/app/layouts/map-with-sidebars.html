@@ -2,7 +2,7 @@
   <div ng-swipe-left="lc=true" ng-swipe-disable-mouse
       ng-show="toggles.sidebars.left&&(!$state.params.embed||$state.params.sidebar)"
       ng-class="{'closed': lc}" class="sidebar-scroll-container left">
-    <div  ng-if="!lc" ui-view="region" class="left" ></div>
+    <div  ng-if="!lc"  class="left" ></div>
   </div>
   <i ng-show="toggles.sidebars.left&&($state.current.views['left-sidebar@species']||$state.$current.parent.views['left-sidebar@species'])"
     ng-class="{'fa-chevron-right':lc, 'fa-chevron-left':!lc}"
@@ -24,4 +24,5 @@
     <div ng-if="!rc" ui-view="species"  class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>
+  <div ui-view="region"></div>
 </div>

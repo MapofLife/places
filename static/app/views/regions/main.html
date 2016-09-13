@@ -1,1 +1,16 @@
-<div></div>
+<style>
+  .region-hover-text {
+    position: absolute;
+    z-index:1000000;
+    top:10px;
+    left:20%;
+    padding:8px;
+    border-radius:3px;
+    opacity: 0.9;
+    color: dark-grey;
+    background-color: white;
+  }
+</style>
+<div class="region-hover-text">
+  {{(!model.taxogroups) ? (model.regionHover.name || '') : ''}}
+</div>
