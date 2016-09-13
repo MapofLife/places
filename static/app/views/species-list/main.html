@@ -50,7 +50,16 @@
   <h3 ng-if="!model.region.name">Click to select a region.</h3><h3
   ng-if="model.region.name">{{model.selectedGroup.title || "Species"}} expected in the {{model.region.name}} region.</h3>
   <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
-    <button class="btn btn-default" ng-click="downloadCSV()">Download List</button>
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-default" ng-click="downloadCSV()">Download Species List</button>
+      </div>
+    </div>
+
+
     <div ng-repeat="group in model.taxogroups | orderBy:'sortby' ">
       <h3 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined"
          class="clickable">&nbsp;
