@@ -60,7 +60,7 @@
     </div>
 
 
-    <div ng-repeat="group in model.taxogroups | removeWith: {taxa: 'plants'}  | orderBy:'sortby' ">
+    <div ng-repeat="group in model.taxogroups  | orderBy:'sortby' ">
       <h3 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined"
          class="clickable">&nbsp;
          <img
