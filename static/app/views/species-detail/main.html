@@ -1,4 +1,19 @@
-<div style="margin:10px;">
+<style>
+  .species-detail-container {
+      min-height:400px;;
+      margin:8px;
+  }
+  .img-fade.ng-enter {
+    transition:1s linear all;
+    opacity:0;
+  }
+  .img-fade.ng-enter.ng-enter-active {
+    opacity:1;
+  }
+  
+
+</style>
+<div class="species-detail-container">
   <button
     style="margin:8px"
     ng-click="$close()"
@@ -9,14 +24,18 @@
     class="btn btn-default pull-right">Explore on mol.org</button>
   <h3 class="common">{{species.common || species.commonname}}</h3>
   <h4 class="scientificname"><i>{{species.scientificname}}</i></h4>
-  <p>{{species.info[0].content}}</p>
+  <p ng-if="species.info[0].content"
+    class="img-fade"
+  >{{species.info[0].content}}</p>
   <table border="0"><tbody><tr>
   <td><img
     style="width:250px; margin: 10px;"
     align="left"
     ng-if="species.rangemap"
+    class="img-fade"
     ng-src="{{species.rangemap + '&size=640,640&api_key=allyourbase' }}"></td>
   <td><img align="right"
     ng-if="species.image_url || species.image.url"
+    class="img-fade"
     ng-src="{{(species.image_url || species.image.url) + '=s250'}}"></td></tr></tbody></table>
 </div>
