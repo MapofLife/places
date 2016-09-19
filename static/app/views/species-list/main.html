@@ -100,7 +100,7 @@
         <div  ng-repeat="family in model.selectedGroup.species
             | filterBy: ['common', 'scientificname'] : term
             | orderBy:'sequenceid'
-            | limitTo:pageSize:((page-1)*pageSize)
+            | limitTo:pageSize:((page)*pageSize)
             | groupBy:'family_common'
             | toArray:true
              ">
