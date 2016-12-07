@@ -1,3 +1,51 @@
+<style type="text/css">
+.info-boxes {
+  position: absolute;
+  top: 0;
+  right: 150px;
+  width: 230px;
+  padding: 0 6px 8px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 0 0 5px 5px;
+  z-index: 101;
+
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+.info-boxes h4 {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.info-boxes hr {
+  margin: 15px 0;
+  border-top: 1px solid #000;
+}
+.info-boxes .form-control {
+    max-width: inherit;
+}
+</style>
+<div class="info-boxes" ng-if="!model.region.region_id">
+    <div class="region-info">
+        <h4>{{ model.regionType.title || "" }}</h4>
+        <b>{{ model.hover_region.name || "Hover over the map" }}</b>
+    </div>
+
+    <span ng-if="model.regions">
+        <hr class="info-box-divider" />
+
+        <div class="region-search">
+            <h4>Search for a region</h3> 
+            <input type="text"
+                placeholder="Search {{ model.regionType.title | lowercase }}"
+                ng-model="model.selected_region"
+                typeahead-on-select="model.selected_region = $item"
+                typeahead-show-hint="true"
+                typeahead-select-on-blur="true"
+                uib-typeahead="region.name for region in model.regions | filter:$viewValue | limitTo:8" class="form-control" />
+        </div>
+    </span>
+</div>
 <ui-gmap-google-map
     class="partials-map"
     center="model.map.center"
@@ -13,6 +61,7 @@
         refresh="mt.refresh"
         ng-repeat="mt in model.map.overlayMapTypes">
     </ui-gmap-map-type>
+    <!--
     <ui-gmap-window
         show="model.map.infowindow.show"
         coords="model.map.infowindow.coords"
@@ -20,6 +69,7 @@
         templateUrl="model.map.infowindow.templateUrl"
         templateParameter="model.map.infowindow.model"
         ></ui-gmap-window>
+        -->
         <ui-gmap-map-control
           template="logo.tpl.html" position="bottom-left" index="10000">
 
