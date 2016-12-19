@@ -1,44 +1,98 @@
 <style>
   .species-detail-container {
-      min-height:400px;;
-      margin:8px;
+      min-height: 400px;
+      margin: 15px;
+      overflow: scroll;
   }
-  .img-fade.ng-enter {
-    transition:1s linear all;
-    opacity:0;
-  }
-  .img-fade.ng-enter.ng-enter-active {
-    opacity:1;
-  }
-  
 
+  #button-wrapper a { margin: 8px; }
+
+  #info-text {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  #info-source {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .species-image, .species-range { 
+    width: 250px; 
+    min-width: 150px; 
+    margin: 10px; 
+  }
+  @media (max-width: 768px) {
+    #image-wrapper {
+      display:flex;
+      flex-direction:row;
+      justify-content: center;
+    }  
+    #image-wrapper div {
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  .fade-in.ng-enter {
+    transition: 1s linear all;
+    opacity: 0;
+  }
+  .fade-in.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
 </style>
+
 <div class="species-detail-container">
-  <button
-    style="margin:8px"
-    ng-click="$close()"
-    class="btn btn-default pull-right">Close</button>
-  <button
-    style="margin:8px"
-    ng-click="mapSpecies(species)"
-    class="btn btn-default pull-right">Explore on mol.org</button>
-  <h3 class="common">{{species.common || species.commonname}}</h3>
-  <h4 class="scientificname"><i>{{species.scientificname}}</i></h4>
-  <p ng-if="species.info[0].content"
-    class="img-fade"
-  >{{species.info[0].content}}</p>
-  <h6 class="pull-right">Source: 
-    <a href="https://en.wikipedia.org/wiki/{{species.scientificname}}" target="_blank">Wikipedia</a>
-  </h6>
-  <table border="0"><tbody><tr>
-  <td><img
-    style="width:250px; margin: 10px;"
-    align="left"
-    ng-if="species.rangemap"
-    class="img-fade"
-    ng-src="{{species.rangemap + '&size=640,640&api_key=allyourbase' }}"></td>
-  <td><img align="right"
-    ng-if="species.image_url || species.image.url"
-    class="img-fade"
-    ng-src="{{(species.image_url || species.image.url) + '=s250'}}"></td></tr></tbody></table>
+  <div id="button-wrapper" class="pull-right">
+    <a class="btn btn-default btn-sm" ng-click="mapSpecies(species)">Explore on MOL</a>
+    <a class="btn btn-danger btn-xs" aria-label="Reset" ng-click="$close()"><i class="fa fa-close" aria-hidden="true"></i></a>
+  </div>
+
+  <div>
+    <h4 class="common">{{species.common || species.commonname}}</h4>
+    <h5 class="scientificname"><i>{{species.scientificname}}</i></h5> 
+  </div>
+
+  <div>
+    
+    <div id="image-wrapper" class="col-md-4 col-sm-6">
+
+      <div id="imga">
+        <img class="species-image img-responsive fade-in" alt="" 
+            ng-if="species.image_url || species.image.url" 
+            ng-src="{{(species.image_url || species.image.url) + '=s250'}}" />
+      </div>
+
+      <div id="imgb">
+        <img class="species-range img-responsive fade-in" 
+            ng-if="species.rangemap" 
+            ng-src="{{species.rangemap + '&size=640,640&api_key=allyourbase' }}" />
+      </div>
+
+    </div>
+
+    <div id="info-wrapper" class="col-md-8 col-sm-6">
+
+      <div class="fade-in" ng-if="loading">
+        <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species information... </h5>
+      </div>
+
+      <div class="fade-in" ng-if="!loading && !species.info">
+        <p><em>Species description not available.</em></p>
+      </div>
+
+      <div class="fade-in" ng-if="species.info[0].content">
+        <p id="info-text">{{species.info[0].content}}</p>
+        <p id="info-source" class="pull-right">Source: 
+          <a href="https://en.wikipedia.org/wiki/{{species.scientificname}}" target="_blank">Wikipedia</a>
+        </p>        
+      </div>
+    </div>
+
+  </div>
+
+
 </div>

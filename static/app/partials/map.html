@@ -24,8 +24,56 @@
 .info-boxes .form-control {
     max-width: inherit;
 }
+
+
+.region-search .popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-height: 250px;
+    overflow: scroll;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 0 0 5px 5px;      
+  }
+
+  .region-search .popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .region-search .popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }  
 </style>
-<div class="info-boxes" ng-if="!model.region.region_id">
+<script type="text/ng-template" id="regionPopupTemplate.html">
+  <div class="popup-wrapper"
+     ng-style="{top: position().top+'px', left: position().left+'px'}"
+     style="display: block;"
+     ng-show="isOpen() && !moveInProgress"
+     aria-hidden="{{!isOpen()}}">
+    <p class="message">Select a region</p>
+
+    <ul class="dropdown-menu" role="listbox">
+        <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+            ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+            <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+        </li>
+    </ul>
+  </div>
+</script>
+<div class="info-boxes" ng-if="!model.region.region_id" ng-class="{'hidden': $state.params.sidebar}">
     <div class="region-info">
         <h4>{{ model.regionType.title || "" }}</h4>
         <b>{{ model.hover_region.name || "Hover over the map" }}</b>
@@ -35,14 +83,15 @@
         <hr class="info-box-divider" />
 
         <div class="region-search">
-            <h4>Search for a region</h3> 
+            <h4>Search for a region</h4> 
             <input type="text"
                 placeholder="Search {{ model.regionType.title | lowercase }}"
                 ng-model="model.selected_region"
                 typeahead-on-select="model.selected_region = $item"
                 typeahead-show-hint="true"
-                typeahead-select-on-blur="true"
-                uib-typeahead="region.name for region in model.regions | filter:$viewValue | limitTo:8" class="form-control" />
+                typeahead-min-length="0"
+                typeahead-popup-template-url="regionPopupTemplate.html"
+                uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
         </div>
     </span>
 </div>
