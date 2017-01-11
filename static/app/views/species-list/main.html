@@ -134,6 +134,17 @@
         </span>
     </div>
 
+    <!-- display other region types to select from -->
+    <div ng-if="model.regionTypes && !$state.params.embed">
+
+      <hr class="info-box-divider" />
+
+      <h4>Other available region types</h4>
+      <ul>
+        <li ng-repeat="rt in model.regionTypes | removeWith:{type:model.regionType.type}"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+      </ul>
+    </div>
+
 
   </div>
 
