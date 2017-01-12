@@ -73,7 +73,7 @@
     </ul>
   </div>
 </script>
-<div class="info-boxes" ng-if="!model.region.region_id" ng-class="{'hidden': $state.params.sidebar}">
+<div class="info-boxes" ng-if="!model.region.region_id" ng-class="{'hidden': (!$state.params.embed||$state.params.sidebar)}">
     <div class="region-info">
         <h4>{{ model.regionType.title || "" }}</h4>
         <b>{{ model.hover_region.name || "Hover over the map" }}</b>

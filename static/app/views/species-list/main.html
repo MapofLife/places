@@ -1,7 +1,5 @@
 
 <style>
-  .sidebar
-
   .species-list .thumb {
     width: 32px; height: 32px;
     opacity: 1;
@@ -140,8 +138,8 @@
       <hr class="info-box-divider" />
 
       <h4>Other available region types</h4>
-      <ul>
-        <li ng-repeat="rt in model.regionTypes | removeWith:{type:model.regionType.type}"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+      <ul> 
+        <li ng-repeat="rt in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'}"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
       </ul>
     </div>
 
