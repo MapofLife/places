@@ -111,14 +111,14 @@
     <div>
         <div class="region-info">
             <h4>{{ model.regionType.title || "" }}</h4>
-            <b>{{ model.hover_region.name || "Hover over the map" }}</b>
+            <b>{{ model.hover_region.name || "Hover over the map to select a region" }}</b>
         </div>
 
         <span ng-if="model.regions">
             <hr class="info-box-divider" />
 
             <div class="region-search">
-                <h4>Search for a region </h4> 
+                <h5>Search for a region </h5> 
                 <input type="text"
                     placeholder="Search {{ model.regionType.title | lowercase }}"
                     ng-model="model.selected_region"
@@ -174,7 +174,7 @@
         <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
       </div>
       -->
-      <div class="col-md-6">
+      <div class="col-md-6 pull-right">
         <button class="btn btn-sm btn-default" ng-click="downloadCSV()">
           <i class="fa fa-download" aria-hidden="true"></i> Download full list
         </button>
