@@ -141,7 +141,7 @@
       <div ng-repeat="rtlist in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'} | groupBy:'mode' | toArray:true">
         <h5>{{ rtlist.$key | capitalize }}</h5>
         <ul> 
-          <li ng-repeat="rt in rtlist"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+          <li ng-repeat="rt in rtlist"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
         </ul>
       </div>
 
