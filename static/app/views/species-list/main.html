@@ -138,9 +138,13 @@
       <hr class="info-box-divider" />
 
       <h4>Other available region types</h4>
-      <ul> 
-        <li ng-repeat="rt in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'}"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
-      </ul>
+      <div ng-repeat="rtlist in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'} | groupBy:'mode' | toArray:true">
+        <h5>{{ rtlist.$key | capitalize }}</h5>
+        <ul> 
+          <li ng-repeat="rt in rtlist"><a ui-sref="root.regions({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+        </ul>
+      </div>
+
     </div>
 
 

@@ -123,4 +123,18 @@
           template="logo.tpl.html" position="bottom-left" index="10000">
 
         </ui-gmap-map-control>
+
+    <ui-gmap-marker 
+        ng-if="model.map.location.display" 
+        idKey="model.map.location.marker.id" 
+        coords="model.map.location.marker.coords">
+    </ui-gmap-marker>
+    <ui-gmap-circle 
+        center="model.map.location.marker.coords" 
+        stroke="{color: '#8cbf44', weight: 2, opacity: 0.7}" 
+        fill="{color: '#8cbf44', opacity: 0.3}" 
+        radius="model.map.location.marker.radius.radius"
+        visible="model.map.location.display"
+        clickable="false">
+    </ui-gmap-circle>
 </ui-gmap-google-map>
