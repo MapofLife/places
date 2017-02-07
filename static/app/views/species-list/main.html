@@ -89,22 +89,25 @@
       .modal-lg { width: 1100px; }    
     }
 
+    .typeahead-group-header {
+      border-bottom: 1px solid #ddd;
+      padding: 12px 10px 3px;
+    }
+
 </style>
-<script type="text/ng-template" id="regionPopupTemplate.html">
-  <div class="popup-wrapper"
-     ng-style="{top: position().top+'px', left: position().left+'px'}"
-     style="display: block;"
-     ng-show="isOpen() && !moveInProgress"
-     aria-hidden="{{!isOpen()}}">
-    <p class="message">Select a region</p>
+<script type="text/ng-template" id="groupedRegionPopupTemplate.html">
+  <div class="popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;" ng-show="isOpen() && !moveInProgress"
+    aria-hidden="{{!isOpen()}}">
+    <!-- <p class="message">Select a region</p> -->
 
     <ul class="dropdown-menu" role="listbox">
-        <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
-            ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
-            <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+      <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)"
+        ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+        <div class="typeahead-group-header" ng-if="match.model.firstInGroup">{{match.model.attributes.country || 'Countries'}}</div>
+        <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
         </li>
     </ul>
-  </div>
+    </div>
 </script>
 <div class="sidebar species-list">
   <div ng-if="!model.region.name">
@@ -126,7 +129,7 @@
                     typeahead-show-hint="true"
                     typeahead-select-on-blur="false"
                     typeahead-min-length="0"
-                    typeahead-popup-template-url="regionPopupTemplate.html"
+                    typeahead-popup-template-url="groupedRegionPopupTemplate.html"
                     uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
             </div>
         </span>
