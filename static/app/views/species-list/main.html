@@ -112,6 +112,11 @@
 <div class="sidebar species-list">
   <div ng-if="!model.region.name">
     <div>
+        <div ng-if="model.regionType.type=='mountains'" class="pull-right">
+          <a class="img-link" href="http://mountainbiodiversity.org/">
+            <img src="static/app/img/gmba_logo.png" width="120px" />
+          </a>
+        </div>
         <div class="region-info">
             <h4>{{ model.regionType.title || "" }}</h4>
             <b>{{ model.hover_region.name || "Hover over the map to select a region" }}</b>
