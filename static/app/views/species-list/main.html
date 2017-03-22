@@ -112,9 +112,9 @@
 <div class="sidebar species-list">
   <div ng-if="!model.region.name">
     <div>
-        <div ng-if="model.regionType.type=='mountains'" class="pull-right">
-          <a class="img-link" href="http://mountainbiodiversity.org/">
-            <img src="static/app/img/gmba_logo.png" width="120px" />
+        <div ng-if="model.regionType.source_logo" class="pull-right">
+          <a class="img-link" href="{{model.regionType.source_url}}">
+            <img src="{{model.regionType.source_logo}}" width="120px" />
           </a>
         </div>
         <div class="region-info">
@@ -138,6 +138,11 @@
                     uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
             </div>
         </span>
+
+        <div ng-if="model.regionType.copyright">
+          <hr class="info-box-divider" />
+          <p ng-bind-html="model.regionType.copyright"></p>
+        </div>
     </div>
 
     <!-- display other region types to select from -->
