@@ -174,7 +174,14 @@
     region.
   </h4>
 
-  <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined">
+  <div ng-if="model.error.message">
+    <hr />
+    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{model.error.message}} </h5>
+    <p>Please try again or <a href="https://mol.org/feedback">let us know</a> about the issue</a>.</p>
+    <hr />
+  </div>
+
+  <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined && model.error.message === undefined">
     <hr />
     <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species list... </h5>
     <hr />
