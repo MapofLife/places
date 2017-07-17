@@ -1,0 +1,31 @@
+<style>
+.padded-block { padding-top: 70px; padding-bottom: 80px; }
+</style>
+
+<div ui-view class="layouts-base scrolling content">
+  <div class="location-container">
+
+    <div class="container padded-block">
+
+      <div ng-if="molConfig.lang=='en'">
+        <h3>Biodiversity in the Andes Amazon region</h3>
+        <p>
+          Welcome to the dashboard for biodiversity in the Andes and Amazon region of South America. This online tool is being developed
+          for Peru, Ecuador, and Colombia, with the aim to provide land managers with demand-driven, actionable biodiversity
+          information.
+        </p>
+      </div>
+
+      <div ng-if="molConfig.lang=='es'">
+        <h3>Biodiversidad de los Andes y la Amazonia</h3>
+        <p>
+           Bienvenido al panel de la biodiversidad de los Andes y la región amazónica de Sudamérica. Esta herramienta en línea está
+          siendo desarrollada para Perú, Ecuador y Colombia. Su objetivo es proporcionar información sobre patrones de biodiversidad
+          a administradores de reservas naturales para la toma de decisiones y planes de manejo.
+        </p>
+      </div>      
+      
+    </div>
+
+  </div>
+</div>
