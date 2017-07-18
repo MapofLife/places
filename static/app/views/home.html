@@ -1,10 +1,64 @@
 <style>
 .padded-block { padding-top: 70px; padding-bottom: 80px; }
+
+/* Carousel base class */
+.carousel a.carousel-control:active {
+  background-color: transparent;
+}
+.carousel {
+  height: 700px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 700px;
+  background-color: #777;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  /* height: 1000px; */
+}
+@media (max-width: 1060px) {
+  .carousel, .carousel .item {
+    height: 500px;
+  }
+}
+@media (max-width: 750px) {
+  .carousel, .carousel .item {
+    height: 300px;
+  }
+}
+
 </style>
 
 <div ui-view class="layouts-base scrolling content">
   <div class="location-container">
 
+    <!-- carousel -->
+    <div class="carousel slide" data-ride="carousel">
+      <uib-carousel interval="5000" no-wrap="false">
+        <uib-slide ng-repeat="slide in slides" active="slide.active">
+          <img ng-src="/static/app/img/parks/{{slide.image}}" style="margin:auto;">
+          <div class="carousel-caption">
+            <p>{{slide.copyright}}</p>
+          </div>
+        </uib-slide>
+      </uib-carousel>
+    </div>
+    <!-- /.carousel -->
+
+    <!-- content -->
     <div class="container padded-block">
 
       <div ng-if="molConfig.lang=='en'">
@@ -26,6 +80,7 @@
       </div>      
       
     </div>
+    <!-- /.content -->
 
   </div>
 </div>
