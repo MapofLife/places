@@ -159,7 +159,7 @@
               <div class="well well-lg">
                 <ul>
                   <li ng-repeat="r in reg.list">
-                    <a ui-sref="regions.region({regiontype:reg.type, region:r.name, regionid:r.region_id})" ui-sref-opts='{reload: true, absolute: true}'>{{ r.name }}</a>
+                    <a ui-sref="regions.region({regiontype:reg.type, region:r.name, regionid:r.region_id})" ui-sref-opts='{inherit: true, reload: false, absolute: true}'>{{ r.name }}</a>
                   </li>
                 </ul>
               </div>
