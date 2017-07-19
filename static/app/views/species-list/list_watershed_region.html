@@ -7,8 +7,11 @@
           </a>
       </div>
       <div class="region-info">
-        <h4>{{ model.regionType.title || "" }}</h4>
+        <h4 translate>{{ model.regionType.title || "" }}</h4>
         <b>{{ model.hover_region.name || "Hover over the map to select a region" }}</b>
+        <!-- 
+          <b translate translate-values-region="{{model.regionType.type}}">{{ model.hover_region.name || 'hover_text' }}</b> 
+        -->
       </div>
 
       <span ng-if="model.regions">
@@ -49,13 +52,14 @@
     <h4><span class="lead">{{model.region.name}}</span></h4>
     <ul ng-if="model.selected_region.attributes.general">
       <li>
-        <strong>Area</strong>: {{ model.selected_region.attributes.general.area | mKm }}
+        <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area }} km2
       </li>
       <li>
-        <strong>Elevation</strong>: 
+        <strong>{{ 'attr_elevation' | translate }}</strong>: 
         {{ model.selected_region.attributes.general.elevation.min }} 
         - 
         {{ model.selected_region.attributes.general.elevation.max }}
+        masl
       </li>
     </ul>
   </div>
@@ -70,26 +74,26 @@
 
   <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined && model.error.message === undefined">
     <hr />
-    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species list... </h5>
+    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_list' | translate }}... </h5>
     <hr />
   </div>
 
 
 <div ng-if="model.region.name">
     <uib-tabset justified="true">
-      <uib-tab heading="Species">
+      <uib-tab heading="{{ 'species' | translate }}">
         
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
           <div class="row">
             <div class="col-md-6 col-xs-6">
               <select class="form-control selectpicker" ng-model="model.selectedSpeciesList">
-                <option value="expected">Expected species</option>
-                <option value="recorded">Recorded species</option>
+                <option value="expected">{{ 'expected_species' | translate }}</option>
+                <option value="recorded">{{ 'recorded_species' | translate }}</option>
               </select>
             </div>
             <div class="col-md-6 col-xs-6">
               <button class="btn btn-sm btn-default" ng-click="downloadCSV()">
-                  <i class="fa fa-download" aria-hidden="true"></i> Download full list
+                  <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
             </div>
           </div>
@@ -108,12 +112,12 @@
           <div class=row>
             <div class="col-md-6 col-xs-6">
               <button class="btn btn-sm btn-default center-block" ng-click="model.selectedGroup = undefined">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to all groups
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'btn_all_groups' | translate }}
                   </button>
             </div>
             <div class="col-md-6 col-xs-6">
               <button class="btn btn-sm btn-default center-block" ng-click="downloadCSV(model.selectedGroup.taxa)">
-                    <i class="fa fa-download" aria-hidden="true"></i> Download group list
+                    <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
                   </button>
             </div>
           </div>
@@ -150,7 +154,7 @@
         </div>
 
       </uib-tab>
-      <uib-tab heading="Parks">
+      <uib-tab heading="{{ 'parks' | translate }}">
         <ul ng-if="model.selected_region.attributes.intersections">
           <li ng-repeat="reg in model.selected_region.attributes.intersections.regions">
             <strong>Number of {{ reg.type.split('_') | join:' ' }}</strong>: {{ reg.list.length }} 
@@ -170,8 +174,16 @@
           </li>
         </ul>
       </uib-tab>
-      <uib-tab heading="Actions">
-        No actions available.
+      <uib-tab heading="{{ 'actions' | translate }}">
+        <p translate>actions_description</p>
+        <p translate>actions_examples</p>
+        <ul>
+          <li translate>actions_option_1</li>
+          <li translate>actions_option_2</li>
+          <li translate>actions_option_3</li>
+          <li translate>actions_option_4</li>
+          <li translate>actions_option_5</li>
+        </ul>
       </uib-tab>
     </uib-tabset>
   </div>

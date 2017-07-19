@@ -9,7 +9,7 @@
     color: #fff;
 }
 </style>
-<div class="subnav navigation">
+<div class="subnav navigation" ng-controller="navCtrl">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,20 +28,20 @@
             <ul class="nav navbar-nav">
                 <li ui-sref-active="active"><a ui-sref="regions.home" 
                     ui-sref-opts='{reload: true, absolute: true}' 
-                    ng-click="isCollapsed = !isCollapsed">Home</a></li>
+                    ng-click="isCollapsed = !isCollapsed">{{'nav_home' | translate}}</a></li>
                 <li ui-sref-active="active"><a ui-sref="regions.region" 
                     ui-sref-opts='{reload: true, absolute: true}' 
-                    ng-click="isCollapsed = !isCollapsed">Explore</a></li>
+                    ng-click="isCollapsed = !isCollapsed">{{'nav_explore' | translate}}</a></li>
                 <li ui-sref-active="active"><a ui-sref="regions.background" 
                     ui-sref-opts='{reload: true, absolute: true}' 
-                    ng-click="isCollapsed = !isCollapsed">Background</a></li>
+                    ng-click="isCollapsed = !isCollapsed">{{'nav_background' | translate}}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" uib-dropdown>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>Language: {{ molConfig.lang }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>{{'language' | translate}}: {{ molConfig.lang }} <span class="caret"></span></a>
                     <ul uib-dropdown-menu class="dropdown-menu">
-                        <li><a href="#" ng-click="molConfig.lang='en'">English</a></li>
-                        <li><a href="#" ng-click="molConfig.lang='es'">Spanish</a></li>
+                        <li><a href="#" ng-click="changeLanguage('en')">{{'lang_en' | translate}}</a></li>
+                        <li><a href="#" ng-click="changeLanguage('es')">{{'lang_es' | translate}}</a></li>
                     </ul>
                 </li>
             </ul>

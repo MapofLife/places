@@ -64,26 +64,13 @@
     <!-- content -->
     <div class="container padded-block">
 
-      <div ng-if="molConfig.lang=='en'">
-        <h3>Biodiversity in the Andes Amazon region</h3>
-        <p>
-          Welcome to the dashboard for biodiversity in the Andes and Amazon region of South America. This online tool is being developed
-          for Peru, Ecuador, and Colombia, with the aim to provide land managers with demand-driven, actionable biodiversity
-          information.
-        </p>
+      <div>
+        <h3>{{'title' | translate}}</h3>
+        <p>{{'description' | translate}}</p>
       </div>
 
-      <div ng-if="molConfig.lang=='es'">
-        <h3>Biodiversidad de los Andes y la Amazonia</h3>
-        <p>
-           Bienvenido al panel de la biodiversidad de los Andes y la región amazónica de Sudamérica. Esta herramienta en línea está
-          siendo desarrollada para Perú, Ecuador y Colombia. Su objetivo es proporcionar información sobre patrones de biodiversidad
-          a administradores de reservas naturales para la toma de decisiones y planes de manejo.
-        </p>
-      </div>      
-
       <div class="supporters">
-        <h4>Supported by: </h4>
+        <h4>{{'supported_by' | translate}}: </h4>
         <a class="p_mf_logo" href="https://www.macfound.org/">
           <img src="static/app/img/macfound.png" alt="MacArthur Foundation" />
         </a>
