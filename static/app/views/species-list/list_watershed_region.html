@@ -81,7 +81,13 @@
         
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
           <div class="row">
-            <div class="col-md-6 pull-right">
+            <div class="col-md-6 col-xs-6">
+              <select class="form-control selectpicker" ng-model="model.selectedSpeciesList">
+                <option value="expected">Expected species</option>
+                <option value="recorded">Recorded species</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-xs-6">
               <button class="btn btn-sm btn-default" ng-click="downloadCSV()">
                   <i class="fa fa-download" aria-hidden="true"></i> Download full list
                 </button>
