@@ -8,19 +8,16 @@
       </div>
       <div class="region-info">
         <h4 translate>{{ model.regionType.title || "" }}</h4>
-        <b>{{ model.hover_region.name || "Hover over the map to select a region" }}</b>
-        <!-- 
-          <b translate translate-values-region="{{model.regionType.type}}">{{ model.hover_region.name || 'hover_text' }}</b> 
-        -->
+        <b>{{ model.hover_region.name }}</b>
       </div>
 
       <span ng-if="model.regions">
             <hr class="info-box-divider" />
 
             <div class="region-search">
-                <h5>Search for a region </h5> 
+                <h5>{{ model.placeholders.search }} </h5> 
                 <input type="text"
-                    placeholder="Search {{ model.regionType.title | lowercase }}"
+                    placeholder="{{ model.placeholders.filter }}"
                     ng-model="model.selected_region"
                     typeahead-on-select="model.selected_region = $item"
                     typeahead-show-hint="true"
@@ -52,14 +49,14 @@
     <h4><span class="lead">{{model.region.name}}</span></h4>
     <ul ng-if="model.selected_region.attributes.general">
       <li>
-        <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area }} km2
+        <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
       </li>
       <li>
         <strong>{{ 'attr_elevation' | translate }}</strong>: 
-        {{ model.selected_region.attributes.general.elevation.min }} 
+        {{ model.selected_region.attributes.general.elevation.min | number }} 
         - 
-        {{ model.selected_region.attributes.general.elevation.max }}
-        masl
+        {{ model.selected_region.attributes.general.elevation.max | number }}
+        msnm
       </li>
     </ul>
   </div>
@@ -74,7 +71,7 @@
 
   <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined && model.error.message === undefined">
     <hr />
-    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_list' | translate }}... </h5>
+    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_list' | translate }} </h5>
     <hr />
   </div>
 
@@ -124,9 +121,9 @@
           <hr class="info-box-divider" />
           <div class="row">
             <div class="col-md-12 ">
-              <input type="text" class="form-control  center-block" placeholder="Filter {{model.selectedGroup.taxa}}" ng-model="term"></div>
+              <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}" ng-model="term"></div>
           </div>
-          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize"
+          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
             force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
           <div>
             <div ng-repeat="family in model.selectedGroup.species
@@ -155,10 +152,10 @@
 
       </uib-tab>
       <uib-tab heading="{{ 'parks' | translate }}">
-        <ul ng-if="model.selected_region.attributes.intersections">
-          <li ng-repeat="reg in model.selected_region.attributes.intersections.regions">
-            <strong>Number of {{ reg.type.split('_') | join:' ' }}</strong>: {{ reg.list.length }} 
-            (<button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">list</button>)
+        <ul class="list-group" ng-if="model.selected_region.attributes.intersections">
+          <li class="list-group-item" ng-repeat="reg in model.selected_region.attributes.intersections.regions">
+            <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} 
+            (<button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">{{ 'attr_list' | translate }}</button>)
             <div uib-collapse="isCollapsed" ng-init="isCollapsed = true">
               <div class="well well-lg">
                 <ul>
@@ -169,7 +166,11 @@
               </div>
             </div>
           </li>
-          <li ng-repeat="attr in model.selected_region.attributes.intersections.attributes">
+          <li class="list-group-item" ng-repeat="attr in (
+              (molConfig.lang == 'es') ?
+              model.selected_region.attributes.intersections.attributes_es 
+              : model.selected_region.attributes.intersections.attributes_en
+            )">
             <strong>{{ attr.title }}</strong>: {{ attr.value }}
           </li>
         </ul>
@@ -177,12 +178,12 @@
       <uib-tab heading="{{ 'actions' | translate }}">
         <p translate>actions_description</p>
         <p translate>actions_examples</p>
-        <ul>
-          <li translate>actions_option_1</li>
-          <li translate>actions_option_2</li>
-          <li translate>actions_option_3</li>
-          <li translate>actions_option_4</li>
-          <li translate>actions_option_5</li>
+        <ul class="list-group">
+          <li class="list-group-item" translate>actions_option_1</li>
+          <li class="list-group-item" translate>actions_option_2</li>
+          <li class="list-group-item" translate>actions_option_3</li>
+          <li class="list-group-item" translate>actions_option_4</li>
+          <li class="list-group-item" translate>actions_option_5</li>
         </ul>
       </uib-tab>
     </uib-tabset>

@@ -56,11 +56,12 @@
     <a class="btn btn-danger btn-xs pull-right" ng-click="showAllRegions()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
   </div>
 
-  <h4 ng-if="model.region.name">
+  <!-- <h4 ng-if="model.region.name">
     <span class="lead">{{model.selectedGroup.title || "Species"}}</span> {{model.selectedSpeciesList}} in the
     <br />
     <span class="lead">{{model.region.name}}</span> region.
-  </h4>
+  </h4> -->
+  <h4><span class="lead">{{model.region.name}}</span></h4>
 
   <div ng-if="model.error.message">
     <hr />
@@ -71,7 +72,7 @@
 
   <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined && model.error.message === undefined">
     <hr />
-    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species list... </h5>
+    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_list' | translate }} </h5>
     <hr />
   </div>
 
@@ -79,13 +80,13 @@
     <div class="row">
       <div class="col-md-6 col-xs-6">
         <select class="form-control selectpicker" ng-model="model.selectedSpeciesList">
-          <option value="expected">Expected species</option>
-          <option value="recorded">Recorded species</option>
+          <option value="expected">{{ 'expected_species' | translate }}</option>
+          <option value="recorded">{{ 'recorded_species' | translate }}</option>
         </select>
       </div>
       <div class="col-md-6 col-xs-6">
         <button class="btn btn-sm btn-default" ng-click="downloadCSV()">
-          <i class="fa fa-download" aria-hidden="true"></i> Download full list
+          <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
         </button>
       </div>
     </div>
@@ -103,21 +104,21 @@
     <div class=row>
       <div class="col-md-6 col-xs-6">
         <button class="btn btn-sm btn-default center-block" ng-click="model.selectedGroup = undefined">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to all groups
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'btn_all_groups' | translate }}
           </button>
       </div>
       <div class="col-md-6 col-xs-6">
         <button class="btn btn-sm btn-default center-block" ng-click="downloadCSV(model.selectedGroup.taxa)">
-            <i class="fa fa-download" aria-hidden="true"></i> Download group list
+            <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
           </button>
       </div>
     </div>
     <hr class="info-box-divider" />
     <div class="row">
       <div class="col-md-12 ">
-        <input type="text" class="form-control  center-block" placeholder="Filter {{model.selectedGroup.taxa}}" ng-model="term"></div>
+        <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}" ng-model="term"></div>
     </div>
-    <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize"
+    <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
       force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
     <div>
       <div ng-repeat="family in model.selectedGroup.species
