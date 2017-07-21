@@ -51,13 +51,7 @@
       <li>
         <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
       </li>
-      <li>
-        <strong>{{ 'attr_elevation' | translate }}</strong>: 
-        {{ model.selected_region.attributes.general.elevation.min | number }} 
-        - 
-        {{ model.selected_region.attributes.general.elevation.max | number }}
-        msnm
-      </li>
+      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>    
     </ul>
   </div>
   
@@ -78,7 +72,7 @@
 
 <div ng-if="model.region.name">
     <uib-tabset justified="true">
-      <uib-tab heading="{{ 'species' | translate }}">
+      <uib-tab heading="{{ 'species' | translate }}" active="activeRegionTab[0]" select="selectRegionTab[0]">
         
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
           <div class="row">
@@ -151,7 +145,7 @@
         </div>
 
       </uib-tab>
-      <uib-tab heading="{{ 'parks' | translate }}">
+      <uib-tab heading="{{ 'parks' | translate }}" active="activeRegionTab[1]" select="selectRegionTab[1]">
         <ul class="list-group" ng-if="model.selected_region.attributes.intersections">
           <li class="list-group-item" ng-repeat="reg in model.selected_region.attributes.intersections.regions">
             <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} 
@@ -175,7 +169,7 @@
           </li>
         </ul>
       </uib-tab>
-      <uib-tab heading="{{ 'actions' | translate }}">
+      <uib-tab heading="{{ 'actions' | translate }}" active="activeRegionTab[2]" select="selectRegionTab[2]">
         <p translate>actions_description</p>
         <p translate>actions_examples</p>
         <ul class="list-group">
