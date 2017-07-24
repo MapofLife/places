@@ -153,7 +153,7 @@
             <div uib-collapse="isCollapsed" ng-init="isCollapsed = true">
               <div class="well well-lg">
                 <ul>
-                  <li ng-repeat="r in reg.list">
+                  <li ng-repeat="r in reg.list | orderBy:'name'">
                     <a ui-sref="regions.region({regiontype:reg.type, region:r.name, regionid:r.region_id})" ui-sref-opts='{inherit: true, reload: false, absolute: true}'>{{ r.name }}</a>
                   </li>
                 </ul>
