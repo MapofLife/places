@@ -199,8 +199,8 @@
 
   <div ng-if="model.error.message">
     <hr />
-    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{model.error.message}} </h5>
-    <p>Please try again or <a href="https://mol.org/feedback">let us know</a> about the issue</a>.</p>
+    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{model.error.message | translate}} </h5>
+    <p translate>error_feedback</p>
     <hr />
   </div>
 
