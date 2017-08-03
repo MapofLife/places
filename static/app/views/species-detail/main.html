@@ -47,7 +47,7 @@
 
 <div class="species-detail-container">
   <div id="button-wrapper" class="pull-right">
-    <a class="btn btn-default btn-sm" ng-click="mapSpecies(species)">View detailed info</a>
+    <a class="btn btn-default btn-sm" ng-click="mapSpecies(species)" translate>detailed_info</a>
     <a class="btn btn-danger btn-xs" aria-label="Reset" ng-click="$close()"><i class="fa fa-close" aria-hidden="true"></i></a>
   </div>
 
@@ -77,16 +77,16 @@
     <div id="info-wrapper" class="col-md-8 col-sm-6">
 
       <div class="fade-in" ng-if="loading">
-        <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species information... </h5>
+        <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_info' | translate }} </h5>
       </div>
 
       <div class="fade-in" ng-if="!loading && !species.info">
-        <p><em>Species description not available.</em></p>
+        <p><em translate>sp_info_not_available</em></p>
       </div>
 
       <div class="fade-in" ng-if="species.info[0].content">
         <p id="info-text">{{species.info[0].content}}</p>
-        <p id="info-source" class="pull-right">Source: 
+        <p id="info-source" class="pull-right">{{ 'source' | translate }}: 
           <a href="https://{{molConfig.lang}}.wikipedia.org/wiki/{{species.scientificname}}" target="_blank">Wikipedia</a>
         </p>        
       </div>
