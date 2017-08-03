@@ -109,7 +109,197 @@
     </ul>
     </div>
 </script>
+<div class="sidebar species-list">
+  <div ng-if="!model.region.name">
+    <div>
+        <div ng-if="model.regionType.source_logo && model.copyright.display" class="pull-right">
+          <a class="img-link" href="{{model.regionType.source_url}}">
+            <img src="{{model.regionType.source_logo}}" width="120px" />
+          </a>
+        </div>
+        <div class="region-info">
+            <h4 translate>{{ "region_"+model.regionType.type || "" }}</h4>
+            <b>{{ model.hover_region.name }}</b>
+        </div>
 
-<div ng-if="model.regionType.type == 'watersheds'" ng-include="'static/app/views/species-list/list_watershed_region.html'"></div>
-<div ng-if="model.regionType.type != 'watersheds'" ng-include="'static/app/views/species-list/list_generic_region.html'"></div>
+        <span ng-if="model.regions">
+            <hr class="info-box-divider" />
 
+            <div class="region-search">
+                <h5>{{ model.placeholders.search }} </h5> 
+                <input type="text"
+                    placeholder="{{ model.placeholders.filter }}"
+                    ng-model="model.selected_region"
+                    typeahead-on-select="model.selected_region = $item"
+                    typeahead-show-hint="true"
+                    typeahead-select-on-blur="false"
+                    typeahead-min-length="0"
+                    typeahead-popup-template-url="groupedRegionPopupTemplate.html"
+                    uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
+            </div>
+        </span>
+
+        <!-- base layers -->
+        <div ng-if="model.regionType.baselayers">
+          <hr class="info-box-divider" />
+          <h5>Base layers </h5>
+          <select name="baselayeropts" id="baselayeropts" class="form-control selectpicker" 
+            ng-model="model.selectedBaseLayer" 
+            ng-options="opt.name for opt in model.regionType.baselayers track by opt.tile_url">
+          </select>
+          <div>
+            <h6>Legend</h6>
+            <img src="{{model.selectedBaseLayer.legend.src}}" style="max-width:180px" />
+          </div>
+        </div>
+
+        <div ng-if="model.regionType.copyright && model.copyright.display">
+          <hr class="info-box-divider" />
+          <p ng-bind-html="model.regionType.copyright"></p>
+        </div>
+    </div>
+
+    <!-- display other region types to select from -->
+    <div ng-if="model.regionTypes && !$state.params.embed">
+
+      <hr class="info-box-divider" />
+
+      <h4>Other available region types</h4>
+      <div ng-repeat="rtlist in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'} | groupBy:'mode' | toArray:true">
+        <h5>{{ rtlist.$key | capitalize }}</h5>
+        <ul> 
+          <li ng-repeat="rt in rtlist"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div ng-if="model.region.name">
+    <a class="btn btn-danger btn-xs pull-right" ng-click="showAllRegions()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
+  </div>
+
+  <!-- <h4 ng-if="model.region.name">
+    <span class="lead">{{model.selectedGroup.title || "Species"}}</span> expected in the 
+    <br />
+    <span class="lead">{{model.region.name}}</span> 
+    region.
+  </h4> -->
+  <div>
+    <h4><span class="lead">{{model.region.name}}</span></h4>
+    <ul ng-if="model.selected_region.attributes.general">
+      <li>
+        <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
+      </li>
+      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>
+    </ul>
+  </div>
+
+  <div ng-if="model.error.message">
+    <hr />
+    <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{model.error.message}} </h5>
+    <p>Please try again or <a href="https://mol.org/feedback">let us know</a> about the issue</a>.</p>
+    <hr />
+  </div>
+
+  <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species === undefined && model.error.message === undefined">
+    <hr />
+    <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_list' | translate }} </h5>
+    <hr />
+  </div>
+
+  <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
+    <div class="row">
+      <!--
+      <div class="col-md-6">
+        <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
+      </div>
+      -->
+      <div class="col-md-12">
+        <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV()">
+          <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <hr class="info-box-divider" />
+
+    <div class="taxa-block" ng-repeat="group in model.taxogroups  | orderBy:'sortby' ">
+      <h4 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined"
+         class="clickable">&nbsp;
+         <img
+         align="left"
+         class="thumb"
+         ng-hide="h"
+         ng-src="{{'https://mol.org/static/img/groups/taxa_'
+             + group.taxa + '.png' }}"
+         ng-error="h=true;">
+         <span class="lead">{{group.count | number}}&nbsp;{{group.title}}</span></h4>
+    </div>
+  </div>
+  <div ng-if="model.region.name && model.selectedGroup !== undefined ">
+      <div class=row>
+        <div class="col-md-6 col-xs-6">
+          <button class="btn btn-sm btn-default pull-left" ng-click="model.selectedGroup = undefined">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'btn_all_groups' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-xs-6">
+          <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV(model.selectedGroup.taxa)">
+            <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
+          </button>
+        </div>
+      </div>
+      <hr class="info-box-divider" />
+      <div class="row">
+        <div class="col-md-12 ">
+          <input
+            type="text" class="form-control  center-block"
+            placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}" ng-model="term"></div>
+      </div>
+      <ul
+          uib-pagination
+          total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length"
+          items-per-page="pageSize"
+          previous-text="{{ 'previous' | translate }}" 
+          next-text="{{ 'next' | translate }}"
+          force-ellipses="true"
+          boundary-link-numbers="true"
+          max-size="4"
+          ng-model="page" ></ul>
+      <div>
+        <div  ng-repeat="family in model.selectedGroup.species
+            | filterBy: ['common', 'scientificname'] : term
+            | orderBy:'sequenceid'
+            | limitTo:pageSize:((page-1)*pageSize)
+            | groupBy:'family_common'
+            | toArray:true
+             ">
+          <h4 class="clickable bordered"><span class="lead">{{(family.$key !== 'null')?family.$key:'Family N/A'}}</span></h4>
+          <div ng-click="speciesDetail(s)" class="row clickable species-block" ng-repeat="s in family">
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              <div ng-class="{'thumb-error':h}">
+                <img
+                align="left"
+                class="thumb"
+                popover-placement="left"
+                popover-trigger="mouseenter"
+                ng-show="!h"
+                ng-src="{{(s.image_url) ? s.image_url + '=s60-c' :
+                  'https://mol.org/static/img/groups/taxa_'
+                    + model.selectedGroup.taxa + '.png' }}"
+                ng-error="h=true;"
+                ></div>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-10">
+              <div class="common">{{s.common}}</div>
+              <div class="latin">{{s.scientificname}}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
