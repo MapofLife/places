@@ -7,7 +7,7 @@
           </a>
       </div>
       <div class="region-info">
-        <h4 translate>{{ model.regionType.title || "" }}</h4>
+        <h4 translate>{{ "region_"+model.regionType.type || "" }}</h4>
         <b>{{ model.hover_region.name }}</b>
       </div>
 
@@ -51,10 +51,10 @@
       <li>
         <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
       </li>
-      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>    
+      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>
     </ul>
   </div>
-  
+
 
   <div ng-if="model.error.message">
     <hr />
@@ -70,10 +70,10 @@
   </div>
 
 
-<div ng-if="model.region.name">
+  <div ng-if="model.region.name">
     <uib-tabset justified="true">
       <uib-tab heading="{{ 'species' | translate }}" active="activeRegionTab[0]" select="selectRegionTab[0]">
-        
+
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
           <div class="row">
             <div class="col-md-6 col-xs-6">
@@ -115,10 +115,12 @@
           <hr class="info-box-divider" />
           <div class="row">
             <div class="col-md-12 ">
-              <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}" ng-model="term"></div>
+              <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}"
+                ng-model="term"></div>
           </div>
-          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
-            force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
+          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize"
+            previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}" force-ellipses="true" boundary-link-numbers="true"
+            max-size="4" ng-model="page"></ul>
           <div>
             <div ng-repeat="family in model.selectedGroup.species
                     | filterBy: ['common', 'scientificname'] : term
@@ -148,8 +150,8 @@
       <uib-tab heading="{{ 'parks' | translate }}" active="activeRegionTab[1]" select="selectRegionTab[1]">
         <ul class="list-group" ng-if="model.selected_region.attributes.intersections">
           <li class="list-group-item" ng-repeat="reg in model.selected_region.attributes.intersections.regions">
-            <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} 
-            (<button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">{{ 'attr_list' | translate }}</button>)
+            <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} (
+            <button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">{{ 'attr_list' | translate }}</button>)
             <div uib-collapse="isCollapsed" ng-init="isCollapsed = true">
               <div class="well well-lg">
                 <ul>
@@ -182,5 +184,5 @@
       </uib-tab>
     </uib-tabset>
   </div>
-  
+
 </div>
