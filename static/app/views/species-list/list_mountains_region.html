@@ -97,19 +97,18 @@
         <div class="fade-in" style="margin-top: 15px;" ng-if="!model.loading && !model.regioninfo">
           <p><em translate>no_content_available</em></p>
         </div>
-        <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.attributes && model.regioninfo.attributes.length > 0">
+        <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.attributes && (model.regioninfo.attributes.length > 0)">
           <h5>Attributes</h5>
           <ul class="fa-ul">
             <li ng-repeat="attr in model.regioninfo.attributes"><i class="fa-li fa fa-circle-thin"></i> 
-              <strong>{{ attr.attribute_title }}</strong>: {{ attr.attribute_value | number }} 
+              <strong>{{ attr.attribute_title }}</strong>: {{ attr.attribute_value | numberAlt }} 
               <span ng-if="attr.attribute_id.indexOf('area') > 0">km<sup>2</sup></span>
             </li>
           </ul>
         </div>
         <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.content">
           <h5>Description</h5>
-          <!-- <p id="info-text" ng-bind-html="model.regioninfo.content | newlineToBr"></p> -->
-          <p ng-repeat="para in (model.regioninfo.content | newlines) track by $index">{{ para }}</p>
+          <p id="info-text-{{$index}}" ng-repeat="para in (model.regioninfo.content | newlines) track by $index">{{ para }}</p>
           <p id="info-source" class="pull-right">{{ 'source' | translate }}:
             <a href="{{model.regioninfo.url}}" target="_blank">{{ model.regioninfo.source }}</a>
           </p>
