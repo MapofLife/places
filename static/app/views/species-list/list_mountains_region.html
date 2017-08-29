@@ -70,12 +70,6 @@
 
   <div>
     <h4><span class="lead">{{model.region.name}}</span></h4>
-    <ul ng-if="model.selected_region.attributes.general">
-      <li>
-        <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
-      </li>
-      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>
-    </ul>
   </div>
 
   <div ng-if="model.error.message">
@@ -103,8 +97,18 @@
         <div class="fade-in" style="margin-top: 15px;" ng-if="!model.loading && !model.regioninfo">
           <p><em translate>no_content_available</em></p>
         </div>
+        <div>
+          <h5>Attributes</h5>
+          <ul class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.attributes">
+            <li ng-repeat="attr in model.regioninfo.attributes | filter: {attribute_id: '!gmba_country'}">
+              <strong>{{ attr.attribute_title }}</strong>: {{ attr.attribute_value }}
+            </li>
+          </ul>
+        </div>
         <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.content">
-          <p id="info-text" style="white-space: pre-line;">{{model.regioninfo.content}}</p>
+          <h5>Description</h5>
+          <!-- <p id="info-text" ng-bind-html="model.regioninfo.content | newlineToBr"></p> -->
+          <p ng-repeat="para in (model.regioninfo.content | newlines) track by $index">{{ para }}</p>
           <p id="info-source" class="pull-right">{{ 'source' | translate }}:
             <a href="{{model.regioninfo.url}}" target="_blank">{{ model.regioninfo.source }}</a>
           </p>
