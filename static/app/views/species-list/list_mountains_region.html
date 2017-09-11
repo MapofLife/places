@@ -100,8 +100,8 @@
         <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.attributes && (model.regioninfo.attributes.length > 0)">
           <h5 translate>attributes</h5>
           <ul class="fa-ul">
-            <li ng-repeat="attr in model.regioninfo.attributes"><i class="fa-li fa fa-circle-thin"></i> 
-              <strong>{{ attr.attribute_title }}</strong>: {{ attr.attribute_value | numberAlt }} 
+            <li ng-repeat="attr in model.regioninfo.attributes | omit: 'attribute_id==\'gmba_scale\''"><i class="fa-li fa fa-circle-thin"></i> 
+              <strong>{{ attr.attribute_id | translate }}</strong>: {{ attr.attribute_value | numberAlt }} 
               <span ng-if="attr.attribute_id.indexOf('area') > 0">km<sup>2</sup></span>
             </li>
           </ul>
