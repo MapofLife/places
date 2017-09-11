@@ -31,11 +31,11 @@
       <!-- base layers -->
       <div ng-if="model.regionType.baselayers">
         <hr class="info-box-divider" />
-        <h5>Base layers </h5>
-        <select name="baselayeropts" id="baselayeropts" class="form-control selectpicker" ng-model="model.selectedBaseLayer" ng-options="opt.name for opt in model.regionType.baselayers track by opt.tile_url">
+        <h5 translate>base_layers</h5>
+        <select name="baselayeropts" id="baselayeropts" class="form-control selectpicker" ng-model="model.selectedBaseLayer" ng-options="opt.name | makei18nKey | translate for opt in model.regionType.baselayers track by opt.tile_url">
           </select>
         <div>
-          <h6>Legend</h6>
+          <h6 translate>legend</h6>
           <img src="{{model.selectedBaseLayer.legend.src}}" style="max-width:180px" />
         </div>
       </div>
@@ -98,7 +98,7 @@
           <p><em translate>no_content_available</em></p>
         </div>
         <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.attributes && (model.regioninfo.attributes.length > 0)">
-          <h5>Attributes</h5>
+          <h5 translate>attributes</h5>
           <ul class="fa-ul">
             <li ng-repeat="attr in model.regioninfo.attributes"><i class="fa-li fa fa-circle-thin"></i> 
               <strong>{{ attr.attribute_title }}</strong>: {{ attr.attribute_value | numberAlt }} 
@@ -107,7 +107,7 @@
           </ul>
         </div>
         <div class="fade-in" style="margin-top: 15px;" ng-if="model.regioninfo.content">
-          <h5>Description</h5>
+          <h5 translate>description</h5>
           <p id="info-text-{{$index}}" ng-repeat="para in (model.regioninfo.content | newlines) track by $index">{{ para }}</p>
           <p id="info-source" class="pull-right">{{ 'source' | translate }}:
             <a href="{{model.regioninfo.url}}" target="_blank">{{ model.regioninfo.source }}</a>

@@ -142,13 +142,13 @@
         <!-- base layers -->
         <div ng-if="model.regionType.baselayers">
           <hr class="info-box-divider" />
-          <h5>Base layers </h5>
+          <h5 translate>base_layers</h5>
           <select name="baselayeropts" id="baselayeropts" class="form-control selectpicker" 
             ng-model="model.selectedBaseLayer" 
-            ng-options="opt.name for opt in model.regionType.baselayers track by opt.tile_url">
+            ng-options="opt.name | makei18nKey | translate for opt in model.regionType.baselayers track by opt.tile_url">
           </select>
           <div>
-            <h6>Legend</h6>
+            <h6 translate>legend</h6>
             <img src="{{model.selectedBaseLayer.legend.src}}" style="max-width:180px" />
           </div>
         </div>
