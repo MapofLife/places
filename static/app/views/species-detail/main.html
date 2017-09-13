@@ -69,7 +69,7 @@
       <div id="imgb">
         <img class="species-range img-responsive fade-in" 
             ng-if="species.rangemap" 
-            ng-src="{{species.rangemap + '&size=640,640&api_key=allyourbase' }}" />
+            ng-src="{{'https://api.mol.org/map?name=' + species.scientificname + '&size=640,640&api_key=allyourbase' }}" />
       </div>
 
     </div>
