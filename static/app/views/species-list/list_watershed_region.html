@@ -83,7 +83,7 @@
               </select>
             </div>
             <div class="col-md-6 col-xs-6">
-              <button class="btn btn-sm btn-default" ng-click="downloadCSV()">
+              <button class="btn btn-sm btn-default" ng-click="initiateDownload()">
                   <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
             </div>
@@ -107,7 +107,7 @@
                   </button>
             </div>
             <div class="col-md-6 col-xs-6">
-              <button class="btn btn-sm btn-default center-block" ng-click="downloadCSV(model.selectedGroup.taxa)">
+              <button class="btn btn-sm btn-default center-block" ng-click="initiateDownload(model.selectedGroup.taxa)">
                     <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
                   </button>
             </div>
