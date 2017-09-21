@@ -114,7 +114,7 @@
     <div>
         <div ng-if="model.regionType.source_logo && model.copyright.display" class="pull-right">
           <a class="img-link" href="{{model.regionType.source_url}}">
-            <img src="{{model.regionType.source_logo}}" width="120px" />
+            <img ng-src="{{model.regionType.source_logo}}" width="120px" />
           </a>
         </div>
         <div class="region-info">
@@ -149,7 +149,7 @@
           </select>
           <div>
             <h6 translate>legend</h6>
-            <img src="{{model.selectedBaseLayer.legend.src}}" style="max-width:180px" />
+            <img ng-src="{{model.selectedBaseLayer.legend.src}}" style="max-width:180px" />
           </div>
         </div>
 
@@ -164,11 +164,11 @@
 
       <hr class="info-box-divider" />
 
-      <h4>Other available region types</h4>
+      <h4 translate>other_region_types</h4>
       <div ng-repeat="rtlist in model.regionTypes | remove:model.regionType | removeWith:{mode:'local'} | groupBy:'mode' | toArray:true">
-        <h5>{{ rtlist.$key | capitalize }}</h5>
+        <h5 translate>{{ rtlist.$key }}</h5>
         <ul> 
-          <li ng-repeat="rt in rtlist"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+          <li ng-repeat="rt in rtlist"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})" translate>{{ rt.type }}</a></li>
         </ul>
       </div>
 
