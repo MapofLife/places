@@ -24,7 +24,7 @@
                     typeahead-select-on-blur="false"
                     typeahead-min-length="0"
                     typeahead-popup-template-url="groupedRegionPopupTemplate.html"
-                    uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
+                    uib-typeahead="region.name for region in model.regions | filter:{name:$viewValue}" class="form-control" />
             </div>
         </span>
 
