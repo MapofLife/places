@@ -75,6 +75,11 @@
 
   <div ng-if="model.region.name">
     <a class="btn btn-danger btn-xs pull-right" ng-click="showAllRegions()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
+    <div ng-if="model.regionType.source_logo && model.copyright.display" class="pull-right">
+      <a class="img-link" href="{{model.regionType.source_url}}" style="padding-right: 15px;">
+          <img ng-src="{{model.regionType.source_logo}}" width="100px" />
+        </a>
+    </div>
   </div>
 
   <div>
