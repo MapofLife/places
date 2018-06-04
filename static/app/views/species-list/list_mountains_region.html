@@ -53,6 +53,12 @@
         <!-- <p ng-bind-html="model.regionType.copyright"></p> -->
         <p translate>copyright_gmba</p>
       </div>
+
+      <div>
+        <span><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+        &nbsp;
+        <span translate>download_mtn_inventory</span>
+      </div>
     </div>
 
     <!-- display other region types to select from -->
@@ -135,14 +141,19 @@
           <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
             <div class="row">
               <!--
-      <div class="col-md-6">
-        <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
-      </div>
-      -->
+              <div class="col-md-6">
+                <button class="btn btn-default" ng-click="showAllRegions()">Show all {{model.regionType.title}}</button>
+              </div>
+              -->
               <div class="col-md-12">
                 <button class="btn btn-sm btn-default pull-right" ng-click="initiateDownload()">
-          <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
-        </button>
+                  <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
+                </button>
+              </div>
+              <div class="col-md-12">
+                <span><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                <!-- <span translate>view_region_datasets</span> -->
+                <small><span><a ng-click="showRegionDatasets()" href="#">Browse datasets</a> available for this mountain range.</span></small>
               </div>
             </div>
 
@@ -159,13 +170,13 @@
             <div class=row>
               <div class="col-md-6 col-xs-6">
                 <button class="btn btn-sm btn-default pull-left" ng-click="model.selectedGroup = undefined">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'btn_all_groups' | translate }}
-          </button>
+                  <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'btn_all_groups' | translate }}
+                </button>
               </div>
               <div class="col-md-6 col-xs-6">
                 <button class="btn btn-sm btn-default pull-right" ng-click="initiateDownload(model.selectedGroup.taxa)">
-            <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
-          </button>
+                  <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
+                </button>
               </div>
             </div>
             <hr class="info-box-divider" />
