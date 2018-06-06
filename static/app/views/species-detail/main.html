@@ -47,7 +47,7 @@
 
 <div class="species-detail-container">
   <div id="button-wrapper" class="pull-right">
-    <a class="btn btn-default btn-sm" ng-click="mapSpecies(species)" translate>detailed_info</a>
+    <a class="btn btn-default btn-sm" ng-click="mapSpecies(species)">View detailed info</a>
     <a class="btn btn-danger btn-xs" aria-label="Reset" ng-click="$close()"><i class="fa fa-close" aria-hidden="true"></i></a>
   </div>
 
@@ -69,7 +69,7 @@
       <div id="imgb">
         <img class="species-range img-responsive fade-in" 
             ng-if="species.rangemap" 
-            ng-src="{{'https://api.mol.org/map?name=' + species.scientificname + '&size=640,640&api_key=allyourbase' }}" />
+            ng-src="{{species.rangemap + '&size=640,640&api_key=allyourbase' }}" />
       </div>
 
     </div>
@@ -77,17 +77,17 @@
     <div id="info-wrapper" class="col-md-8 col-sm-6">
 
       <div class="fade-in" ng-if="loading">
-        <h5><i class="fa fa-refresh fa-spin fa-fw"></i> {{ 'loading_sp_info' | translate }} </h5>
+        <h5><i class="fa fa-refresh fa-spin fa-fw"></i> Loading species information... </h5>
       </div>
 
       <div class="fade-in" ng-if="!loading && !species.info">
-        <p><em translate>sp_info_not_available</em></p>
+        <p><em>Species description not available.</em></p>
       </div>
 
       <div class="fade-in" ng-if="species.info[0].content">
         <p id="info-text">{{species.info[0].content}}</p>
-        <p id="info-source" class="pull-right">{{ 'source' | translate }}: 
-          <a href="https://{{molConfig.lang}}.wikipedia.org/wiki/{{species.scientificname}}" target="_blank">Wikipedia</a>
+        <p id="info-source" class="pull-right">Source: 
+          <a href="https://en.wikipedia.org/wiki/{{species.scientificname}}" target="_blank">Wikipedia</a>
         </p>        
       </div>
     </div>
