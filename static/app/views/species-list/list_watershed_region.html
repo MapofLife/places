@@ -89,13 +89,13 @@
       <uib-tab heading="{{ 'species' | translate }}" active="activeRegionTab[0]" select="selectRegionTab[0]">
         
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
-          <!-- <div class="row">
+          <div class="row">
             <div class="col-md-12 col-xs-12">
               <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV()">
                   <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
             </div>
-          </div> -->
+          </div>
           <div class="row">
             <div class="col-md-6 col-xs-6">
               <select class="form-control selectpicker" ng-model="model.selectedSpeciesList">
@@ -103,28 +103,28 @@
                 <option value="recorded">{{ 'recorded_species' | translate }}</option>
               </select>
             </div>
-            <!-- <div class="col-md-6 col-xs-6">
+            <div class="col-md-6 col-xs-6">
               <select class="form-control selectpicker" ng-model="model.selectedSpeciesStatus">
                 <option value="">{{ 'threat_status' | translate }}</option>
                 <option value="redlist">{{ 'threat_iucn' | translate }}</option>
                 <option value="threat_cites">{{ 'threat_cites' | translate }}</option>
                 <option value="threat_national">{{ 'threat_national' | translate }}</option>
               </select>
-            </div> -->
-            <div class="col-md-6 col-xs-6">
+            </div>
+            <!-- <div class="col-md-6 col-xs-6">
               <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV()">
                   <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
-            </div>
+            </div> -->
           </div>
 
           <hr class="info-box-divider" />
 
-          <div class="taxa-block" ng-repeat="group in model.taxogroups  | orderBy:'sortby' ">
-            <h4 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined" class="clickable">&nbsp;
+          <div class="taxa-block" ng-repeat="group in model.taxogroups | orderBy:'sortby' ">
+            <h4 ng-click="model.selectedGroup = (group.species.length > 0) ? group : undefined" class="clickable">&nbsp;
               <img align="left" class="thumb" ng-hide="h" ng-src="{{'https://mol.org/static/img/groups/taxa_'
                     + group.taxa + '.png' }}" ng-error="h=true;">
-              <span class="lead">{{group.count | number}}&nbsp;{{group.title}}</span></h4>
+              <span class="lead">{{group.species.length | number}}&nbsp;{{group.title}}</span></h4>
           </div>
         </div>
 
@@ -167,6 +167,7 @@
                 <div class="col-md-10 col-sm-10 col-xs-10">
                   <div class="common">{{s.common}}</div>
                   <div class="latin">{{s.scientificname}}</div>
+                  <div class="threat">{{s[model.selectedSpeciesStatus]}}</div>
                 </div>
               </div>
             </div>
