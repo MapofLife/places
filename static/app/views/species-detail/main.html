@@ -57,6 +57,28 @@
   </div>
 
   <div>
+      <div class="row threat_status">
+          <!-- <div class="col-md-1 col-sm-1">&nbsp;</div> -->
+          <div class="col-md-4 col-sm-4 infoIUCNStatus {{species.redlist}}"
+              style="font-size:0.8em; cursor: pointer; cursor: hand;" 
+              ng-show="species.redlist">
+            <a href="{{ species.redlist_link || 'http://www.iucnredlist.org/' }}" target="_blank">{{ ('iucn_'+species.redlist) | lowercase | translate }}&nbsp;({{ (species.redlist_citation_short || 'IUCN&nbsp;2017') | replace:"[()]":"" }})</a>
+          </div>
+          <div class="col-md-4 col-sm-4 infoIUCNStatus {{species.threat_cites}}"
+              style="font-size:0.8em; cursor: pointer; cursor: hand;" 
+              ng-show="species.threat_cites">
+            <a href="https://www.cites.org/eng/app/appendices.php" target="_blank">CITES: Appendices {{ species.threat_cites }}</a>
+          </div>
+          <div class="col-md-4 col-sm-4 infoIUCNStatus {{species.threat_national}}"
+              style="font-size:0.8em; cursor: pointer; cursor: hand;" 
+              ng-show="species.threat_national">
+            <a href="http://www.nationalredlist.org/" target="_blank"><span translate>threat_national</span>: {{ ('iucn_'+species.threat_national) | lowercase | translate }}</a>
+          </div>
+        </div>
+    
+  </div>
+
+  <div>
     
     <div id="image-wrapper" class="col-md-4 col-sm-6">
 
