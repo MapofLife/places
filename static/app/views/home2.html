@@ -8,7 +8,10 @@
 .p_mf_logo img { width: 100px; }
 
 .layouts-base { 
-  background: url(static/app/img/parks/slide2.jpg) no-repeat center center fixed ;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url(static/app/img/parks/slide6.jpg) no-repeat center center fixed ;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -17,10 +20,22 @@
 .main-content h2 small, .main-content, .footer-content {
   color: #fff;
 }
+.main-content .dashboard-links div {
+  position: relative;
+  min-height: 13em;
+}
+.main-content .dashboard-links div a.btn {
+  position: absolute;
+  bottom: 0;
+  padding: 8px 15px;
+}
 .footer-content {
   position: fixed; 
   bottom: 10px;
   width: 100%;
+}
+.footer-content .copyright {
+  font-size: 12px;
 }
 @media (max-width: 500px) {
   .padded-block {
@@ -29,7 +44,7 @@
 }
 </style>
 
-<div ui-view class="layouts-base scrolling content">
+<div ui-view class="layouts-base background-tint scrolling content">
   <div class="location-container">
 
     <!-- content -->
@@ -41,6 +56,29 @@
           <small>({{'in_dev' | translate}})</small>
         </h2>
         <p class="lead">{{'description' | translate}}</p>
+      </div>
+
+      <!-- dashboard buttons -->
+      <div class="row dashboard-links">
+
+        <div class="col-md-4">
+          <h2 translate>hero_title_parks</h2>
+          <p translate>hero_desc_parks</p>
+          <p><a class="btn btn-default" ui-sref="regions.region({regiontype: 'national_parks'})" role="button" translate>btn_view_dashboard</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h2 translate>hero_title_watersheds</h2>
+          <p translate>hero_desc_watersheds</p>
+          <p><a class="btn btn-default" ui-sref="regions.region({regiontype: 'watersheds'})" role="button" translate>btn_view_dashboard</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h2 translate>hero_title_countries</h2>
+          <p translate>hero_desc_countries</p>
+          <p><a class="btn btn-default" ui-sref="regions.region({regiontype: 'countries'})" role="button" translate>btn_view_dashboard</a></p>
+        </div>
+
       </div>
       
       
@@ -58,7 +96,7 @@
         </div>
 
         <div class="pull-right">
-          <p class="copyright">Image &copy; Jon Markel</p>
+          <p class="copyright">{{'bg_img_caption' | translate}} <br /> {{'bg_img_copyright' | translate}} </p>
         </div>
 
       </div>
