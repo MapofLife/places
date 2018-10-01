@@ -7,7 +7,7 @@
           </a>
       </div>
       <div class="region-info">
-        <h4 translate>{{ model.regionType.title || "" }}</h4>
+        <h4>{{ model.regionType.type || "" | translate | capitalize }}</h4>
         <b>{{ model.hover_region.name }}</b>
       </div>
 
@@ -39,10 +39,10 @@
 
         <hr class="info-box-divider" />
   
-        <h4>Other available region types</h4>
+        <h4 translate>other_region_types</h4>
         <div>
           <ul>
-            <li ng-repeat="rt in model.regionTypes | remove:model.regionType"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})">{{ rt.title }}</a></li>
+            <li ng-repeat="rt in model.regionTypes | remove:model.regionType"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})"><span>{{ rt.type | translate | capitalize }}</span></a></li>
           </ul>
         </div>
   
@@ -201,18 +201,25 @@
           </li>
         </ul> -->
 
-        <h5 ng-if="!model.subRegions">Sub-regions are currently not available for this region.</h5>
+        <h5 ng-if="!model.subRegions" translate>sub_region_none</h5>
         
         <select class="form-control selectpicker" ng-if="model.subRegions"
           ng-options="regtype.type for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
-          <option value="">Select a sub-region type</option>
+          <option value="" translate>sub_region_select</option>
         </select>
         
-        <ul class="list-group" ng-if="model.subRegions && model.selectedSubRegionType">
-          <li class="list-group-item" ng-repeat="r in model.selectedSubRegionType.subregions | orderBy:'name':false:localeSensitiveComparator">
+        <div ng-if="model.subRegions && model.selectedSubRegionType">
+          <ul uib-pagination total-items="model.selectedSubRegionType.subregions.length" 
+              items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
+              force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
+          
+          <ul class="list-group" ng-if="model.subRegions && model.selectedSubRegionType">
+          <li class="list-group-item" ng-repeat="r in model.selectedSubRegionType.subregions | orderBy:'name':false:localeSensitiveComparator | limitTo:pageSize:((page-1)*pageSize) | toArray:true">
             <a ui-sref="regions.region({regiontype:r.type, region:r.name, regionid:r.region_id, bounds:r.bnds.join(',')})" ui-sref-opts='{inherit: true, reload: false, absolute: true}' ng-click="selectRegionTab(0)">{{ r.name }}</a>
           </li>
         </ul>
+      </div>
+
       </uib-tab>
       <uib-tab heading="{{ 'actions' | translate }}" active="activeRegionTab[2]" select="selectRegionTab[2]">
         <!-- <p translate>actions_description</p>
@@ -225,7 +232,7 @@
           <li class="list-group-item" translate>actions_option_5</li>
         </ul> -->
 
-        <h5 ng-if="!model.selected_region.attributes.general.actions">Actions are currently not available for this region.</h5>
+        <h5 ng-if="!model.selected_region.attributes.general.actions" translate>actions_not_available</h5>
 
         <div ng-if="model.selected_region.attributes.general.actions">
           <div ng-repeat="(key, actionList) in model.selected_region.attributes.general.actions">
