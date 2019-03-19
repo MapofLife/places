@@ -3,15 +3,15 @@
     <div>
       <div ng-if="model.regionType.source_logo" class="pull-right">
         <a class="img-link" href="{{model.regionType.source_url}}">
-            <img ng-src="{{model.regionType.source_logo}}" width="120px" />
+            <img src="{{model.regionType.source_logo}}" width="120px" />
           </a>
       </div>
       <div class="region-info">
-        <h4 translate>{{ "region_"+model.regionType.type || "" }}</h4>
+        <h4>{{ model.regionType.type || "" | translate | capitalize }}</h4>
         <b>{{ model.hover_region.name }}</b>
       </div>
 
-      <span ng-if="model.regions">
+      <span ng-if="model.regions && false">
             <hr class="info-box-divider" />
 
             <div class="region-search">
@@ -24,7 +24,7 @@
                     typeahead-select-on-blur="false"
                     typeahead-min-length="0"
                     typeahead-popup-template-url="groupedRegionPopupTemplate.html"
-                    uib-typeahead="region.name for region in model.regions | filter:$viewValue" class="form-control" />
+                    uib-typeahead="region as region.name for region in model.regions | filter:$viewValue" class="form-control" />
             </div>
         </span>
 
@@ -34,6 +34,20 @@
       </div>
     </div>
 
+    <!-- display other region types to select from -->
+    <div ng-if="model.regionTypes && !$state.params.embed">
+
+        <hr class="info-box-divider" />
+  
+        <h4 translate>other_region_types</h4>
+        <div>
+          <ul>
+            <li ng-repeat="rt in model.regionTypes | remove:model.regionType"><a ui-sref="regions.region({regiontype: '{{ rt.type }}'})"><span>{{ rt.type | translate | capitalize }}</span></a></li>
+          </ul>
+        </div>
+  
+      </div>
+  
   </div>
 
   <div ng-if="model.region.name">
@@ -47,14 +61,14 @@
   </h4> -->
   <div>
     <h4><span class="lead">{{model.region.name}}</span></h4>
-    <ul ng-if="model.selected_region.attributes.general">
+    <ul ng-if="model.selected_region.attributes.general && model.selected_region.attributes.general.area">
       <li>
         <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
       </li>
-      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>
+      <li translate translate-values="model.selected_region.attributes.general.elevation">attr_elevation</li>    
     </ul>
   </div>
-
+  
 
   <div ng-if="model.error.message">
     <hr />
@@ -70,11 +84,18 @@
   </div>
 
 
-  <div ng-if="model.region.name">
+<div ng-if="model.region.name">
     <uib-tabset justified="true">
       <uib-tab heading="{{ 'species' | translate }}" active="activeRegionTab[0]" select="selectRegionTab[0]">
-
+        
         <div ng-if="model.region.name && model.selectedGroup === undefined && model.taxogroups[0].species ">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV()">
+                  <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
+                </button>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-6 col-xs-6">
               <select class="form-control selectpicker" ng-model="model.selectedSpeciesList">
@@ -83,19 +104,29 @@
               </select>
             </div>
             <div class="col-md-6 col-xs-6">
-              <button class="btn btn-sm btn-default" ng-click="initiateDownload()">
+              <select class="form-control selectpicker" ng-model="model.selectedSpeciesStatus">
+                <option value="">{{ 'all_species' | translate }}</option>
+                <option value="redlist">{{ 'threat_iucn' | translate }}</option>
+                <option value="threat_cites">{{ 'threat_cites' | translate }}</option>
+                <option value="threat_national">{{ 'threat_national' | translate }}</option>
+                <option value="threat_all">{{ 'threat_all' | translate }}</option>
+                <option value="threat_endemic" disabled="disabled">{{ 'threat_endemic' | translate }}</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-xs-6">
+              <button class="btn btn-sm btn-default pull-right" ng-click="downloadCSV()">
                   <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
-            </div>
+            </div> -->
           </div>
 
           <hr class="info-box-divider" />
 
-          <div class="taxa-block" ng-repeat="group in model.taxogroups  | orderBy:'sortby' ">
-            <h4 ng-click="model.selectedGroup = (group.count > 0) ? group : undefined" class="clickable">&nbsp;
+          <div class="taxa-block" ng-repeat="group in model.taxogroups | orderBy:'sortby' ">
+            <h4 ng-click="model.selectedGroup = (group.species.length > 0) ? group : undefined" class="clickable">&nbsp;
               <img align="left" class="thumb" ng-hide="h" ng-src="{{'https://mol.org/static/img/groups/taxa_'
                     + group.taxa + '.png' }}" ng-error="h=true;">
-              <span class="lead">{{group.count | number}}&nbsp;{{group.title}}</span></h4>
+              <span class="lead">{{group.species.length | number}}&nbsp;{{group.title}}</span></h4>
           </div>
         </div>
 
@@ -107,7 +138,7 @@
                   </button>
             </div>
             <div class="col-md-6 col-xs-6">
-              <button class="btn btn-sm btn-default center-block" ng-click="initiateDownload(model.selectedGroup.taxa)">
+              <button class="btn btn-sm btn-default center-block" ng-click="downloadCSV(model.selectedGroup.taxa)">
                     <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_group' | translate }}
                   </button>
             </div>
@@ -115,12 +146,10 @@
           <hr class="info-box-divider" />
           <div class="row">
             <div class="col-md-12 ">
-              <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}"
-                ng-model="term"></div>
+              <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{model.selectedGroup.title | lowercase}}" ng-model="term"></div>
           </div>
-          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize"
-            previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}" force-ellipses="true" boundary-link-numbers="true"
-            max-size="4" ng-model="page"></ul>
+          <ul uib-pagination total-items="(model.selectedGroup.species | filterBy: ['common', 'scientificname'] : term).length" items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
+            force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
           <div>
             <div ng-repeat="family in model.selectedGroup.species
                     | filterBy: ['common', 'scientificname'] : term
@@ -147,11 +176,12 @@
         </div>
 
       </uib-tab>
-      <uib-tab heading="{{ 'parks' | translate }}" active="activeRegionTab[1]" select="selectRegionTab[1]">
-        <ul class="list-group" ng-if="model.selected_region.attributes.intersections">
+      <uib-tab heading="{{ 'regions' | translate }}" active="activeRegionTab[1]" select="selectRegionTab[1]">
+
+        <!-- <ul class="list-group" ng-if="model.selected_region.attributes.intersections">
           <li class="list-group-item" ng-repeat="reg in model.selected_region.attributes.intersections.regions">
-            <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} (
-            <button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">{{ 'attr_list' | translate }}</button>)
+            <strong>{{ 'attr_total_sub_regions' | translate }}</strong>: {{ reg.list.length }} 
+            (<button type="button" class="btn btn-link" ng-click="isCollapsed = !isCollapsed">{{ 'attr_list' | translate }}</button>)
             <div uib-collapse="isCollapsed" ng-init="isCollapsed = true">
               <div class="well well-lg">
                 <ul>
@@ -169,10 +199,30 @@
             )">
             <strong>{{ attr.title }}</strong>: {{ attr.value }}
           </li>
+        </ul> -->
+
+        <h5 ng-if="!model.subRegions" translate>sub_region_none</h5>
+        
+        <select class="form-control selectpicker" ng-if="model.subRegions"
+          ng-options="regtype.type for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
+          <option value="" translate>sub_region_select</option>
+        </select>
+        
+        <div ng-if="model.subRegions && model.selectedSubRegionType">
+          <ul uib-pagination total-items="model.selectedSubRegionType.subregions.length" 
+              items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
+              force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
+          
+          <ul class="list-group" ng-if="model.subRegions && model.selectedSubRegionType">
+          <li class="list-group-item" ng-repeat="r in model.selectedSubRegionType.subregions | orderBy:'name':false:localeSensitiveComparator | limitTo:pageSize:((page-1)*pageSize) | toArray:true">
+            <a ui-sref="regions.region({regiontype:r.type, region:r.name, regionid:r.region_id, bounds:r.bnds.join(',')})" ui-sref-opts='{inherit: true, reload: false, absolute: true}' ng-click="selectRegionTab(0)">{{ r.name }}</a>
+          </li>
         </ul>
+      </div>
+
       </uib-tab>
       <uib-tab heading="{{ 'actions' | translate }}" active="activeRegionTab[2]" select="selectRegionTab[2]">
-        <p translate>actions_description</p>
+        <!-- <p translate>actions_description</p>
         <p translate>actions_examples</p>
         <ul class="list-group">
           <li class="list-group-item" translate>actions_option_1</li>
@@ -180,9 +230,24 @@
           <li class="list-group-item" translate>actions_option_3</li>
           <li class="list-group-item" translate>actions_option_4</li>
           <li class="list-group-item" translate>actions_option_5</li>
-        </ul>
+        </ul> -->
+
+        <h5 ng-if="!model.selected_region.attributes.general.actions" translate>actions_not_available</h5>
+
+        <div ng-if="model.selected_region.attributes.general.actions">
+          <div ng-repeat="(key, actionList) in model.selected_region.attributes.general.actions">
+            <h5>{{ key | translate }}</h5>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="action in actionList">
+                <a ng-if="molConfig.lang == 'en'" href="{{ action.url }}" target="_blank">{{ action.title_en }}</a>
+                <a ng-if="molConfig.lang == 'es'" href="{{ action.url }}" target="_blank">{{ action.title_es }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </uib-tab>
     </uib-tabset>
   </div>
-
+  
 </div>

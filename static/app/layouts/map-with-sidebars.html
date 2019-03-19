@@ -17,11 +17,11 @@
      tooltip-placement="left"
      ng-click="rc = !rc; "></i>-->
   <div class="map-container"  ng-include="'static/app/partials/map.html'"></div>
-  <div class="sidebar-container">
-  <div ng-swipe-right="rc=true" ng-swipe-disable-mouse ng-class="{'closed': !model.taxogroups && !$state.params.sidebar && $state.params.embed}"
+  <div ng-swipe-right="rc=true"
+       ng-swipe-disable-mouse
+       ng-class="{'closed': !model.taxogroups && !$state.params.sidebar && $state.params.embed}"
     class="sidebar-scroll-container right">
-    <div ng-if="!rc" ui-view="species" class="right"></div>
-  </div>
+    <div ng-if="!rc" ui-view="species"  class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>
   <div ui-view="region"></div>
