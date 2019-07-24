@@ -1,0 +1,120 @@
+<style>
+.padded-block { padding-top: 70px; padding-bottom: 80px; }
+.supporters a img { width: 200px; }
+.supporters a { width: 200px; margin: 20px 25px; }
+.supporters div.inst { margin-top: 50px; }
+.p_tfm_logo { background-color: #84a726; }
+.p_tfm_logo img { background-color: #84a726; height: 85px; padding: 5px; }
+.supporters a, .supporters a:hover {
+  background-color: transparent;
+}
+table.metrics { margin-top: 15px; }
+table.metrics thead th { font-weight: bold; }
+</style>
+
+<div ui-view class="layouts-base scrolling content">
+  <div class="location-container">
+
+    <!-- content -->
+    <div class="supporters container padded-block">
+
+      <h2 translate>{{ 'nav_metrics' }}</h2>
+      <!-- <div translate>{{ 'watershed_background' }}</div> -->
+      <div class="row">
+        <div class="col-md-4">
+          <div><img src="static/app/views/metrics/ecuador.png" width="300px" /></div>
+        </div>
+        <div class="col-md-8">
+
+          <!-- 
+          <h4>Top Protected Areas with the Highest Number of <select><option>Amphibian</option><option>Mammals</option></select> Species</h4>
+          <div>
+            <table class="table metrics">
+              <thead>
+                <th>Protected area</th>
+                <th>Number of expected species</th>
+                <th>Number of recorded species</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Protected area 1</td>
+                  <td>439</td>
+                  <td>322</td>
+                </tr>
+                <tr>
+                  <td>Protected area 2</td>
+                  <td>234</td>
+                  <td>211</td>
+                </tr>
+                <tr>
+                  <td>Protected area 3</td>
+                  <td>198</td>
+                  <td>197</td>
+                </tr>
+                <tr>
+                  <td>Protected area 4</td>
+                  <td>73</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td>Protected area 5</td>
+                  <td>19</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> 
+          -->
+          
+          <!-- <div ng-repeat="metric in metrics.data">
+            <h4>Top {{ metric.name }} with the highest number of <select ng-options="toppy.taxa for toppy in metric.top5" ng-model="metrics.selected.taxa"></select> species</h4>
+            <table class="table metrics">
+              <thead>
+                <th>Protected area</th>
+                <th>Number of expected species</th>
+                <th>Number of recorded species</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="region in metrics.selected.taxa.regions">
+                  <td>{{ region.name }}</td>
+                  <td>{{ region.expected }}</td>
+                  <td>{{ region.recorded }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+
+          
+          <div ng-repeat="country in metrics.data_summary | filterBy: ['country'] : 'ecuador'">
+            <div class="panel panel-default" ng-repeat="metric in country.metrics.summary">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{ metric.title }} {{ 'nav_metrics' | translate }}</h3>
+              </div>
+              <table class="table metrics">
+                <thead>
+                  <tr>
+                    <th translate>{{ 'group' }}</th>
+                    <th translate>{{ 'expected_species' }}</th>
+                    <th translate>{{ 'recorded_species' }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in metric.counts">
+                    <td translate>{{ item.name }}</td>
+                    <td>{{ item.expected }}</td>
+                    <td>{{ item.recorded }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+    <!-- /.content -->
+
+  </div>
+</div>
