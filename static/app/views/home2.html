@@ -1,4 +1,5 @@
 <style>
+.location-container { position: relative; }
 .padded-block { padding-top: 70px; padding-bottom: 80px; }
 
 .main-content h2 {
@@ -42,6 +43,77 @@
     padding-top: 0;
   }
 }
+
+
+
+.hero-species {
+        margin: 0 0 32px 0;
+        position: relative;
+        cursor: pointer;
+        /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);*/
+        background: rgba(85, 85, 85, 0.5);
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+    .hero-card {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        /* margin: 8px; */
+        padding: 8px;
+        box-shadow: 0 1px 3px 0 rgba(255,255,255,.2),0 1px 1px 0 rgba(255,255,255,.14),0 2px 1px -1px rgba(255,255,255,.12);
+        transition: all 100ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    }
+    .hero-card:hover {
+        box-shadow: 0px 4px 7px 0 rgba(255,255,255,.2),0 4px 4px 0 rgba(255,255,255,.14),0 5px 4px -4px rgba(255,255,255,.12);
+        transform: translate3d( 0px, -4px, 0px );
+    }
+    .hero-header {
+        height: 200px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .hero-header img {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+    }
+    .hero-info {
+        /* min-height:78px; */
+    }
+    .hero-species h4 { line-height: 1.0; }
+    @media (max-width: 992px) {
+        .hero-header {
+            height: 150px;
+            align-items: center;
+        }
+    }
+    @media (max-width: 768px) {
+        .hero-header {
+            height: 350px;
+            align-items: center;
+        }
+        .hero-header img {
+            width: 95%;
+        }
+        .footer-content {
+          position: absolute; 
+          bottom: 10px;
+          width: 100%;
+          height: 50px;
+        }
+    }
+    @media (max-width: 550px) {
+        .hero-header {
+            height: 200px;
+            align-items: center;
+        }
+        .hero-header img {
+            width: 95%;
+        }
+    }
 </style>
 
 <div ui-view class="layouts-base background-tint scrolling content">
@@ -57,21 +129,18 @@
       </div>
 
       <!-- dashboard buttons -->
-      <div class="row dashboard-links">
-
-        <div class="col-md-4">
-          <p><a class="btn btn-lg btn-default" style="min-width: 75%" ui-sref="regions.region({regiontype: 'national_parks'})" role="button" translate>hero_title_parks</a></p>
-        </div>
-
-        <div class="col-md-4">
-          <p><a class="btn btn-lg btn-default" style="min-width: 75%" ui-sref="regions.region({regiontype: 'watersheds'})" role="button" translate>hero_title_watersheds</a></p>
-        </div>
-
-        <div class="col-md-4">
-          <p><a class="btn btn-lg btn-default" style="min-width: 75%" ui-sref="regions.region({regiontype: 'countries'})" role="button" translate>hero_title_countries</a></p>
-        </div>
-
-      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 text-center" ng-repeat="reg in regionsList">
+          <div class="hero-species" ui-sref="regions.region(reg)">
+              <div class="hero-card">
+                  <div class="hero-header">
+                      <img class="img-center center-block img-responsive" ng-src="{{molConfig.base + 'static/app/img/home_species/' + reg.region.toLowerCase() + '.jpg' }}" alt="{{ reg.region }}" style="" />
+                  </div>
+                  <div class="hero-info">
+                    <h4>{{ reg.region }}</h4>
+                  </div>
+              </div>
+          </div>
+      </div>      
       
       
     </div>
@@ -80,13 +149,6 @@
     <div class="footer-content">
 
       <div class="container">
-        <div class="supporters">
-          <h4>{{'supported_by' | translate}}: </h4>
-          <a class="p_mf_logo" href="https://www.macfound.org/">
-            <img src="static/app/img/macfound.png" alt="MacArthur Foundation" />
-          </a>
-        </div>
-
         <div class="pull-right">
           <p class="copyright">{{'bg_img_caption' | translate}} <br /> {{'bg_img_copyright' | translate}} </p>
         </div>

@@ -60,7 +60,10 @@
     <span class="lead">{{model.region.name}}</span> region.
   </h4> -->
   <div>
-    <h4><span class="lead">{{model.region.name}}</span></h4>
+    <h4>
+      <span class="lead">{{model.region.name}}</span> <br /> 
+      <small>{{(model.regionType.type || model.regionType || "") | translate}}</small>
+    </h4>
     <ul ng-if="model.selected_region.attributes.general && model.selected_region.attributes.general.area">
       <li>
         <strong>{{ 'attr_area' | translate }}</strong>: {{ model.selected_region.attributes.general.area | number }} km2
@@ -204,17 +207,26 @@
         <h5 ng-if="!model.subRegions" translate>sub_region_none</h5>
         
         <select class="form-control selectpicker" ng-if="model.subRegions"
-          ng-options="regtype.type for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
+          ng-options="regtype.type | translate for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
           <option value="" translate>sub_region_select</option>
         </select>
         
         <div ng-if="model.subRegions && model.selectedSubRegionType">
-          <ul uib-pagination total-items="model.selectedSubRegionType.subregions.length" 
+          <!-- TODO: Uncomment the following to allow filtering the subregions list. There is an odd behaviour where it doesn't work like it does for the species. -->
+          <!-- <div>
+            <input type="text" class="form-control  center-block" placeholder="{{ 'filter_group' | translate }} {{(model.regionType.type || model.regionType) | translate | lowercase}}" ng-model="regterm">
+          </div> -->
+          <!-- model.selectedSubRegionType.subregions.length -->
+          <ul uib-pagination total-items="(model.selectedSubRegionType.subregions | filterBy: ['r.name'] : regterm).length" 
               items-per-page="pageSize" previous-text="{{ 'previous' | translate }}" next-text="{{ 'next' | translate }}"
-              force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="page"></ul>
+              force-ellipses="true" boundary-link-numbers="true" max-size="4" ng-model="regpage"></ul>
           
           <ul class="list-group" ng-if="model.subRegions && model.selectedSubRegionType">
-          <li class="list-group-item" ng-repeat="r in model.selectedSubRegionType.subregions | orderBy:'name':false:localeSensitiveComparator | limitTo:pageSize:((page-1)*pageSize) | toArray:true">
+          <li class="list-group-item" ng-repeat="r in model.selectedSubRegionType.subregions
+              | filterBy: ['r.name'] : regterm 
+              | orderBy:'name':false:localeSensitiveComparator 
+              | limitTo:pageSize:((regpage-1)*pageSize) 
+              | toArray:true">
             <a ui-sref="regions.region({regiontype:r.type, region:r.name, regionid:r.region_id, bounds:r.bnds.join(',')})" ui-sref-opts='{inherit: true, reload: false, absolute: true}' ng-click="selectRegionTab(0)">{{ r.name }}</a>
           </li>
         </ul>
