@@ -207,7 +207,7 @@
         <h5 ng-if="!model.subRegions" translate>sub_region_none</h5>
         
         <select class="form-control selectpicker" ng-if="model.subRegions"
-          ng-options="regtype.type | translate for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
+          ng-options="regtype.type | translate | capitalize for regtype in model.subRegions" ng-model="model.selectedSubRegionType">
           <option value="" translate>sub_region_select</option>
         </select>
         
