@@ -84,6 +84,10 @@
         /* min-height:78px; */
     }
     .hero-species h4 { line-height: 1.0; }
+    .hero-species .list-group-item {
+      background-color: rgba(85, 85, 85, 0.5);
+      text-align: left;
+    }
     @media (max-width: 992px) {
         .hero-header {
             height: 150px;
@@ -130,8 +134,8 @@
 
       <!-- dashboard buttons -->
       <div class="col-lg-4 col-md-4 col-sm-4 text-center" ng-repeat="reg in regionsList">
-          <div class="hero-species" ui-sref="regions.region(reg)">
-              <div class="hero-card">
+          <div class="hero-species">
+              <div class="hero-card" ui-sref="regions.region(reg)">
                   <div class="hero-header">
                       <img class="img-center center-block img-responsive" ng-src="{{molConfig.base + 'static/app/img/home_species/' + reg.region.toLowerCase() + '.jpg' }}" alt="{{ reg.region }}" style="" />
                   </div>
@@ -139,6 +143,13 @@
                     <h4>{{ reg.region }}</h4>
                   </div>
               </div>
+              <ul class="list-group">
+                <li class="list-group-item" ui-sref="regions.region({regiontype: 'national_parks', parent_region: reg.regionid})" translate>national_parks</li>
+                <li class="list-group-item" ui-sref="regions.region({regiontype: 'park_divisions', parent_region: reg.regionid})" translate>park_divisions</li>
+                <li class="list-group-item" ui-sref="regions.region({regiontype: 'provinces', parent_region: reg.regionid})" translate>provinces</li>
+                <li class="list-group-item" ui-sref="regions.region({regiontype: 'watersheds', parent_region: reg.regionid})" translate>Watersheds</li>
+                <li class="list-group-item" ui-sref="regions.region({regiontype: 'indigenous_areas', parent_region: reg.regionid})" translate>indigenous_areas</li>
+              </ul>
           </div>
       </div>      
       

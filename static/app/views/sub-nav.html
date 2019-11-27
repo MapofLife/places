@@ -50,7 +50,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" uib-dropdown>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>{{'language' | translate}}: {{ molConfig.lang }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>{{'language' | translate}}: {{ 'lang_' + molConfig.lang | translate }} <span class="caret"></span></a>
                     <ul uib-dropdown-menu class="dropdown-menu">
                         <li><a href="#" ng-click="changeLanguage('en')">{{'lang_en' | translate}}</a></li>
                         <li><a href="#" ng-click="changeLanguage('es')">{{'lang_es' | translate}}</a></li>
