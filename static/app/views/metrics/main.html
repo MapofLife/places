@@ -22,7 +22,7 @@ table.metrics thead th { font-weight: bold; }
       <!-- <div translate>{{ 'watershed_background' }}</div> -->
       <div class="row">
         <div class="col-md-4">
-          <div><img src="static/app/views/metrics/ecuador.png" width="300px" /></div>
+          <div><img src="static/app/views/metrics/{{metrics.selectedRegion.name}}.png" width="300px" /></div>
         </div>
         <div class="col-md-8">
 
@@ -85,7 +85,8 @@ table.metrics thead th { font-weight: bold; }
           </div> -->
 
           
-          <div ng-repeat="country in metrics.data_summary | filterBy: ['country'] : 'ecuador'">
+          <!-- test -->
+          <!-- <div ng-repeat="country in metrics.data_summary_test | filterBy: ['country'] : 'ecuador'">
             <div class="panel panel-default" ng-repeat="metric in country.metrics.summary">
               <div class="panel-heading">
                 <h3 class="panel-title">{{ metric.title }} {{ 'nav_metrics' | translate }}</h3>
@@ -107,7 +108,104 @@ table.metrics thead th { font-weight: bold; }
                 </tbody>
               </table>
             </div>
+          </div> -->
+
+
+          <div>
+            <select class="form-control selectpicker" ng-if="metrics.regions"
+              ng-options="reg.name | translate | capitalize for reg in metrics.regions" ng-model="metrics.selectedRegion">
+              <!-- <option value="" translate>sub_region_select</option> -->
+            </select>
           </div>
+
+          <!-- <pre>{{ metrics.selectedRegion.region_id }}</pre>
+          <pre>{{ metrics.data_summary | filterBy: ['region_id'] : metrics.selectedRegion.region_id }}</pre>
+          <pre>{{ metrics.data_summary | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'area_sqkm'} }}</pre> -->
+
+          <!-- <h3>
+            Total area: 
+            <span class="lead">{{ 
+              (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'area_sqkm'} 
+                | first).attribute_value 
+                | number:0 }} km<sup>2</sup>
+              </span> 
+              <span class="small">
+              {{ ( 1 - ( (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'pa_area_sqkm'} 
+                | first).attribute_value 
+                /
+                (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'area_sqkm'} 
+                | first).attribute_value ) ) * 100 | number:2
+              }} of area unprotected
+            </span> 
+          </h3>
+          <h3>
+            Protected area: 
+            <span class="lead">{{ 
+              (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'pa_area_sqkm'} 
+                | first).attribute_value 
+                | number:0 }} km<sup>2</sup>
+              </span> 
+              <span class="small">
+              {{ ( (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'pa_area_sqkm'} 
+                | first).attribute_value 
+                /
+                (metrics.data_summary 
+                | where:{region_id: metrics.selectedRegion.region_id, attribute_id: 'area_sqkm'} 
+                | first).attribute_value ) * 100 | number:2
+              }} of area protected
+            </span>
+          </h3> -->
+          <h4>
+            Total area: 
+            <span class="lead">{{ metrics.selectedMetrics.area | number:0 }} km<sup>2</sup></span> 
+            <span class="small">{{ metrics.selectedMetrics.upa_pct | number:2 }} of area unprotected</span> 
+          </h4>
+          <h4>
+            Protected area: 
+            <span class="lead">{{ metrics.selectedMetrics.protected_area | number:0 }} km<sup>2</sup></span> 
+            <span class="small">{{ metrics.selectedMetrics.pa_pct | number:2 }} of area protected</span>
+          </h4>
+          
+          <hr />
+
+          <!-- <div>
+            <select class="form-control selectpicker" ng-if="metrics.regions"
+              ng-options="taxa | translate for taxa in metrics.selectedMetrics.taxa_list" 
+              ng-model="metrics.selectedRegionTaxa">
+            </select>
+          </div> -->
+
+          <div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <select class="form-control selectpicker" ng-if="metrics.regions"
+                    ng-options="taxa | translate for taxa in metrics.selectedMetrics.taxa_list" 
+                    ng-model="metrics.selectedRegionTaxa">
+                  </select>
+                </div>
+                <table class="table metrics">
+                  <thead>
+                    <tr>
+                      <th translate>{{ 'nav_metrics' }}</th>
+                      <th translate>{{ 'countries' }}</th>
+                      <th translate>{{ 'protected_areas' }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, metric) in metrics.selectedMetrics.species_metrics[metrics.selectedRegionTaxa]">
+                      <td translate>{{ key }}</td>
+                      <td>{{ metric.country }}</td>
+                      <td>{{ metric.protected_areas }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>          
 
 
         </div>
