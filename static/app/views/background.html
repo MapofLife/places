@@ -17,7 +17,7 @@
     <div class="supporters container padded-block">
 
       <h2 translate>{{ 'nav_background' }}</h2>
-      <div translate>{{ 'watershed_background' }}</div>
+      <div ng-bind-html="'watershed_background' | translate | newlines"></div>
 
       <hr />
 

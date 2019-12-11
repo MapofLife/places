@@ -19,7 +19,6 @@ table.metrics thead th { font-weight: bold; }
     <div class="supporters container padded-block">
 
       <h2 translate>{{ 'nav_metrics' }}</h2>
-      <!-- <div translate>{{ 'watershed_background' }}</div> -->
       <div class="row">
         <div class="col-md-4">
           <div ng-if="metrics.selectedRegion"><img src="static/app/views/metrics/{{ metrics.selectedRegion.name | lowercase }}.png" width="300px" /></div>
@@ -161,15 +160,17 @@ table.metrics thead th { font-weight: bold; }
             </span>
           </h3> -->
           <h4>
-            Total area: 
+            {{'metric_area' | translate}} : 
             <span class="lead">{{ metrics.selectedMetrics.area | number:0 }} km<sup>2</sup></span> 
-            <span class="small">{{ metrics.selectedMetrics.upa_pct | number:2 }} of area unprotected</span> 
+            <span class="small">{{ metrics.selectedMetrics.upa_pct | number:2 }}{{'metric_percentage_unprotected_area' | translate}}</span> 
           </h4>
           <h4>
-            Protected area: 
+            {{'metric_protected_area' | translate}} : 
             <span class="lead">{{ metrics.selectedMetrics.protected_area | number:0 }} km<sup>2</sup></span> 
-            <span class="small">{{ metrics.selectedMetrics.pa_pct | number:2 }} of area protected</span>
+            <span class="small">{{ metrics.selectedMetrics.pa_pct | number:2 }}{{'metric_percentage_protected_area' | translate}}</span>
           </h4>
+
+          <p class="small">*{{ 'metric_areas_footnote' | translate }}</p>
           
           <hr />
 
@@ -180,20 +181,22 @@ table.metrics thead th { font-weight: bold; }
             </select>
           </div> -->
 
+          <h4 translate>{{ 'metric_table_heading' }}</h4>
+
           <div>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <select class="form-control selectpicker" ng-if="metrics.regions"
-                    ng-options="taxa | translate for taxa in metrics.selectedMetrics.taxa_list" 
+                    ng-options="taxa | translate for taxa in metrics.selectedMetrics.taxa_list | remove: 'turtles': 'plants'" 
                     ng-model="metrics.selectedRegionTaxa">
                   </select>
                 </div>
                 <table class="table metrics">
                   <thead>
                     <tr>
-                      <th translate>{{ 'nav_metrics' }}</th>
-                      <th translate>{{ 'countries' }}</th>
-                      <th translate>{{ 'protected_areas' }}</th>
+                      <th translate>{{ 'metric_table_col1' }}</th>
+                      <th translate>{{ 'metric_table_col2' }}</th>
+                      <th translate>{{ 'metric_table_col3' }}</th>
                     </tr>
                   </thead>
                   <tbody>

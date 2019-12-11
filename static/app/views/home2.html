@@ -127,9 +127,9 @@
     <div class="main-content container padded-block">
 
       <div>
-        <h2>{{'title' | translate}}
+        <h2>{{'landing_title' | translate}}
         </h2>
-        <p class="lead">{{'description' | translate}}</p>
+        <p class="lead" ng-bind-html="'landing_description' | translate | newlines"></p>
       </div>
 
       <!-- dashboard buttons -->
@@ -152,6 +152,10 @@
               </ul>
           </div>
       </div>      
+
+      <div>
+        <p class="lead" ng-bind-html="'landing_footnote' | translate | newlines"></p>
+      </div>
       
       
     </div>
