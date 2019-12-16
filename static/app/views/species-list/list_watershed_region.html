@@ -110,10 +110,11 @@
               <select class="form-control selectpicker" ng-model="model.selectedSpeciesStatus">
                 <option value="">{{ 'all_species' | translate }}</option>
                 <option value="redlist">{{ 'threat_iucn' | translate }}</option>
-                <option value="threat_cites">{{ 'threat_cites' | translate }}</option>
                 <option value="threat_national">{{ 'threat_national' | translate }}</option>
+                <option value="threat_cites">{{ 'threat_cites' | translate }}</option>
                 <option value="threat_all">{{ 'threat_all' | translate }}</option>
                 <option value="endemic">{{ 'endemic' | translate }}</option>
+                <option value="unique_to_park">{{ 'unique_to_park' | translate }}</option>
               </select>
             </div>
             <!-- <div class="col-md-6 col-xs-6">
@@ -121,6 +122,18 @@
                   <i class="fa fa-download" aria-hidden="true"></i> {{ 'download_list_full' | translate }}
                 </button>
             </div> -->
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="small">
+                <i class="fa fa-info-circle fa-lg"></i> 
+                <span>{{ 'tooltip_' + model.selectedSpeciesList + '_species' | translate }}</span>
+              </div>
+              <div class="small" ng-if="model.selectedSpeciesStatus && model.selectedSpeciesStatus != 'threat_all'">
+                <i class="fa fa-info-circle fa-lg"></i>
+                <span>{{ 'tooltip_' + model.selectedSpeciesStatus | translate }}</span>
+              </div>
+            </div>
           </div>
 
           <hr class="info-box-divider" />
@@ -231,7 +244,10 @@
       </div>
 
       </uib-tab>
-      <uib-tab heading="{{ 'actions' | translate }}" active="activeRegionTab[2]" select="selectRegionTab[2]" ng-if="model.regionType.type != 'countries' && model.regionType != 'countries'">
+      <uib-tab active="activeRegionTab[2]" select="selectRegionTab[2]" ng-if="model.regionType.type != 'countries' && model.regionType != 'countries'">
+        <uib-tab-heading>
+          {{ 'actions' | translate }} <i class="fa fa-info-circle fa-lg" uib-popover="{{ 'tooltip_actions' | translate }}" popover-trigger="mouseenter" popover-placement="bottom"></i>
+        </uib-tab-heading>
         <!-- <p translate>actions_description</p>
         <p translate>actions_examples</p>
         <ul class="list-group">
@@ -246,7 +262,7 @@
 
         <div ng-if="model.selected_region.attributes.general.actions">
           <div ng-repeat="(key, actionList) in model.selected_region.attributes.general.actions">
-            <h5>{{ key | translate }}</h5>
+            <h5>{{ key | translate }} <i class="fa fa-info-circle fa-lg" uib-popover="{{ 'tooltip_' + key | translate }}" popover-trigger="outsideClick" popover-placement="right"></i> </h5>
             <ul class="list-group">
               <li class="list-group-item" ng-repeat="action in actionList">
                 <a ng-if="molConfig.lang == 'en'" href="{{ action.url }}" target="_blank">{{ action.title_en }}</a>

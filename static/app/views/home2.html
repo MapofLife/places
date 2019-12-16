@@ -88,6 +88,8 @@
       background-color: rgba(85, 85, 85, 0.5);
       text-align: left;
     }
+    .popover-content { background-color: rgba(85, 85, 85, 0.8); }
+    /* .fa.fa-question-circle.fa-lg { float: right; } */
     @media (max-width: 992px) {
         .hero-header {
             height: 150px;
@@ -151,7 +153,19 @@
                 <li class="list-group-item" ui-sref="regions.region({regiontype: 'indigenous_areas', parent_region: reg.regionid})" translate>indigenous_areas</li>
               </ul>
           </div>
-      </div>      
+      </div>
+      
+      <div style="padding-bottom: 50px;">
+        <span translate>national_parks</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_parks' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
+        &nbsp; &nbsp; &nbsp;
+        <span translate>park_divisions</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_park_divisions' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
+        &nbsp; &nbsp; &nbsp;
+        <span translate>provinces</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_provinces' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
+        &nbsp; &nbsp; &nbsp;
+        <span translate>Watersheds</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_watersheds' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
+        &nbsp; &nbsp; &nbsp;
+        <span translate>indigenous_areas</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_indigenous_territories' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
+      </div>
 
       <div>
         <p class="lead" ng-bind-html="'landing_footnote' | translate | newlines"></p>
