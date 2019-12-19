@@ -7,7 +7,11 @@
           </a>
       </div>
       <div class="region-info">
-        <h4>{{ model.regionType.type || "" | translate | capitalize }}</h4>
+        <h4>
+          {{ model.regionType.type || "" | translate | capitalize }}
+          &nbsp;
+          <span class="small"><i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_' + model.regionType.type | translate }}" popover-trigger="outsideClick" popover-placement="bottom"></i></span>
+        </h4>
         <b>{{ model.hover_region.name }}</b>
       </div>
 
