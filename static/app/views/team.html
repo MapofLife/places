@@ -9,16 +9,14 @@
   background-color: transparent;
 }
 div.person-photo {
-  margin-top: 2em;
+  /* margin-top: 2em; */
   text-align: center;
   font-size: 16px;
 }
 div.person-photo img {
-  width: 80%;
-  height: auto;
-  border-radius: 200px;
-
-  overflow-y: hidden;
+  width: auto;
+  max-height: 200px;
+  margin-top: 2.3em;
 }
 </style>
 
@@ -33,7 +31,7 @@ div.person-photo img {
       <div class="row person-photo">
         
         <div class="col-md-offset-1 col-md-4 col-xs-4">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/walter.jpg">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/walter.jpg">
           <div class="bio-info">
             <h4>Walter Jetz</h4>
             <div>Lead PI</div>
@@ -43,7 +41,7 @@ div.person-photo img {
         </div>
 
         <div class="col-md-offset-1 col-md-4 col-xs-4">
-          <img height="200px" src="static/app/img/nigel.jpg"> <!-- https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-1171-1435343936.jpg?itok=inAHvs3g -->
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-1171-1435343936.jpg?itok=inAHvs3g">
           <div class="bio-info">
             <h4>Nigel Pitman</h4>
             <div>Lead PI</div>
@@ -59,8 +57,8 @@ div.person-photo img {
 
       <div class="row person-photo">
 
-        <div class="col-xs-4">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/ajay.png">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/ajay.png">
           <div class="bio-info">
             <h4>Ajay Ranipeta</h4>
             <div>Lead Engineer</div>
@@ -71,8 +69,8 @@ div.person-photo img {
           </div>
         </div>
 
-        <div class="col-xs-4">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/michelle.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/michelle.jpg">
           <div class="bio-info">
             <h4>Michelle Duong</h4>
             <div>Project Manager</div>
@@ -80,12 +78,13 @@ div.person-photo img {
           </div>
         </div>
 
-        <div class="col-xs-4">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/yanina.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/yanina.jpg">
           <div class="bio-info">
             <h4>Yanina Sica</h4>
             <div>Data Manager</div>
             <div>Yale University</div>
+            <a href="https://yaninasica.wixsite.com/yaninasica" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
@@ -96,102 +95,113 @@ div.person-photo img {
 
       <div class="row person-photo">
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="http://www.eeb.utoronto.ca/Assets/EEB+2013+Digital+Assets/EEB/EEB+Digital+Assets/People/StGeorge+Faculty/Adriana+Bravo+photo.jpg">
           <div class="bio-info">
             <h4>Adriana Bravo</h4>
-            <div>Data Curator</div>
+            <div>Coordination</div>
             <div>Field Museum</div>
+            <a href="http://www.eeb.utoronto.ca/people/d-faculty/Adriana_Bravo.htm" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/rafe.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-64076-1542657953.jpg?itok=c8YLUXZx">
           <div class="bio-info">
-            <h4>Michelle</h4>
+            <h4>Michelle Thompson</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/2631" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-38421-1521209910.jpg?itok=0VYb_Sd2">
           <div class="bio-info">
-            <h4>Lesley</h4>
+            <h4>Lesley de Souza</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href=" https://www.fieldmuseum.org/about/staff/profile/2316" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-64071-1539871638.jpg?itok=fHhaCf_E">
           <div class="bio-info">
-            <h4>Tomomi</h4>
+            <h4>Tomomi Suwa</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/2601" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/rafe.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/pictures/picture-441-1520457198.jpg?itok=l-iTSHXH">
           <div class="bio-info">
-            <h4>Corine</h4>
+            <h4>Corine Vriesendorp</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/406" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/nancy_hensold.jpg?itok=iFP19F6F">
           <div class="bio-info">
-            <h4>Nancy</h4>
+            <h4>Nancy Hensold</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/346" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/rafe.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/65796_10150111435050555_519155554_7573848_6445350_n.jpg?itok=_nRTlHoN">
           <div class="bio-info">
-            <h4>Juliana</h4>
+            <h4>Juliana Philipp</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/376" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/rafe.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="static/app/img/team/NicholasKotlinski.jpg">
           <div class="bio-info">
-            <h4>Nic</h4>
+            <h4>Nicholas Kotlinski</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.linkedin.com/in/nicholas-kotlinski-06360b186" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="static/app/img/team/ColleenKingsbury.jpg">
           <div class="bio-info">
-            <h4>Colleen</h4>
+            <h4>Colleen Kingsbury</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/2331" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/rafe.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://www.fieldmuseum.org/sites/default/files/styles/headshot/public/Sharon_2011.jpg?itok=KkC10ohX">
           <div class="bio-info">
             <h4>Sharon Grant</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/11" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/brian.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="static/app/img/team/KateWebbink.jpg">
           <div class="bio-info">
-            <h4>Kate</h4>
+            <h4>Kate Webbink</h4>
             <div>Data Curator</div>
             <div>Field Museum</div>
+            <a href="https://www.fieldmuseum.org/about/staff/profile/986" target="_blank"><i class="fa fa-globe"></i></a>
           </div>
         </div>
         
@@ -202,8 +212,8 @@ div.person-photo img {
 
       <div class="row person-photo">
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/john.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/john.jpg">
           <div class="bio-info">
             <h4>John Wilshire</h4>
             <div>Software Engineer</div>
@@ -211,8 +221,8 @@ div.person-photo img {
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/wendy.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/wendy.jpg">
           <div class="bio-info">
             <h4>Wendy Dorman</h4>
             <div>Data Curator</div>
@@ -220,8 +230,8 @@ div.person-photo img {
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/isabel.jpg">
+        <div class="col-xs-3 col-xs-4">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/isabel.jpg">
           <div class="bio-info">
             <h4>Isabel Del Toro Mijares</h4>
             <div>Research Assistant</div>
@@ -236,8 +246,8 @@ div.person-photo img {
 
       <div class="row person-photo">
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/luis.jpg">
+        <div class="col-xs-6">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/luis.jpg">
           <div class="bio-info">
             <h4>Luis J Villanueva-Rivera</h4>
             <div>Biodiversity Data Manager</div>
@@ -245,8 +255,8 @@ div.person-photo img {
           </div>
         </div>
 
-        <div class="col-xs-3">
-          <img width="200" height="200" src="https://mol.org/assets/img/team/julie.jpg">
+        <div class="col-xs-6">
+          <img class="img-responsive img-thumbnail" src="https://mol.org/assets/img/team/julie.jpg">
           <div class="bio-info">
             <h4>Julie Hart</h4>
             <div>Biodiversity Data Manager</div>
