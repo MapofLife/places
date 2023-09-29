@@ -139,51 +139,124 @@
 		<!-- content -->
 		<div class="main-content container padded-block">
 			<div>
-				<h2>Welcome, you will be redirected to our new application in 5 seconds.</h2>
+				<h2>{{'landing_title' | translate}}</h2>
+				<p
+					class="lead"
+					ng-bind-html="'landing_description' | translate | newlines"
+				></p>
 			</div>
 
-			<!-- <div>
-        <h2>{{'landing_title' | translate}}
-        </h2>
-        <p class="lead" ng-bind-html="'landing_description' | translate | newlines"></p>
-      </div> -->
-
 			<!-- dashboard buttons -->
-			<!-- <div class="col-lg-4 col-md-4 col-sm-4 text-center" ng-repeat="reg in regionsList">
-          <div class="hero-species">
-              <div class="hero-card" ui-sref="regions.region(reg)">
-                  <div class="hero-header">
-                      <img class="img-center center-block img-responsive" ng-src="{{molConfig.base + 'static/app/img/home_species/' + reg.region.toLowerCase() + '.jpg' }}" alt="{{ reg.region }}" style="" />
-                  </div>
-                  <div class="hero-info">
-                    <h4>{{ reg.region }}</h4>
-                  </div>
-              </div>
-              <ul class="list-group">
-                <li class="list-group-item" ui-sref="regions.region({regiontype: 'protected_areas', parent_region: reg.regionid})" translate>protected_areas</li>
-                <li class="list-group-item" ui-sref="regions.region({regiontype: 'park_divisions', parent_region: reg.regionid})" translate>park_divisions</li>
-                <li class="list-group-item" ui-sref="regions.region({regiontype: 'provinces', parent_region: reg.regionid})" translate>provinces</li>
-                <li class="list-group-item" ui-sref="regions.region({regiontype: 'watersheds', parent_region: reg.regionid})" translate>Watersheds</li>
-                <li class="list-group-item" ui-sref="regions.region({regiontype: 'indigenous_areas', parent_region: reg.regionid})" translate>indigenous_areas</li>
-              </ul>
-          </div>
-      </div>
-      
-      <div style="padding-bottom: 50px;">
-        <span translate>protected_areas</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_protected_areas' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
-        &nbsp; &nbsp; &nbsp;
-        <span translate>park_divisions</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_park_divisions' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
-        &nbsp; &nbsp; &nbsp;
-        <span translate>provinces</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_provinces' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
-        &nbsp; &nbsp; &nbsp; <br /> <br />
-        <span translate>Watersheds</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_watersheds' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
-        &nbsp; &nbsp; &nbsp;
-        <span translate>indigenous_areas</span> <i class="fa fa-question-circle fa-lg" uib-popover="{{ 'tooltip_indigenous_areas' | translate }}" popover-trigger="outsideClick" popover-placement="top"></i> 
-      </div>
+			<div
+				class="col-lg-4 col-md-4 col-sm-4 text-center"
+				ng-repeat="reg in regionsList"
+			>
+				<div class="hero-species">
+					<div
+						class="hero-card"
+						ui-sref="regions.region(reg)"
+					>
+						<div class="hero-header">
+							<img
+								class="img-center center-block img-responsive"
+								ng-src="{{molConfig.base + 'static/app/img/home_species/' + reg.region.toLowerCase() + '.jpg' }}"
+								alt="{{ reg.region }}"
+								style=""
+							/>
+						</div>
+						<div class="hero-info">
+							<h4>{{ reg.region }}</h4>
+						</div>
+					</div>
+					<ul class="list-group">
+						<li
+							class="list-group-item"
+							ui-sref="regions.region({regiontype: 'protected_areas', parent_region: reg.regionid})"
+							translate
+						>
+							protected_areas
+						</li>
+						<li
+							class="list-group-item"
+							ui-sref="regions.region({regiontype: 'park_divisions', parent_region: reg.regionid})"
+							translate
+						>
+							park_divisions
+						</li>
+						<li
+							class="list-group-item"
+							ui-sref="regions.region({regiontype: 'provinces', parent_region: reg.regionid})"
+							translate
+						>
+							provinces
+						</li>
+						<li
+							class="list-group-item"
+							ui-sref="regions.region({regiontype: 'watersheds', parent_region: reg.regionid})"
+							translate
+						>
+							Watersheds
+						</li>
+						<li
+							class="list-group-item"
+							ui-sref="regions.region({regiontype: 'indigenous_areas', parent_region: reg.regionid})"
+							translate
+						>
+							indigenous_areas
+						</li>
+					</ul>
+				</div>
+			</div>
 
-      <div>
-        <p class="lead" ng-bind-html="'landing_footnote' | translate | newlines"></p>
-      </div> -->
+			<div style="padding-bottom: 50px">
+				<span translate>protected_areas</span>
+				<i
+					class="fa fa-question-circle fa-lg"
+					uib-popover="{{ 'tooltip_protected_areas' | translate }}"
+					popover-trigger="outsideClick"
+					popover-placement="top"
+				></i>
+				&nbsp; &nbsp; &nbsp;
+				<span translate>park_divisions</span>
+				<i
+					class="fa fa-question-circle fa-lg"
+					uib-popover="{{ 'tooltip_park_divisions' | translate }}"
+					popover-trigger="outsideClick"
+					popover-placement="top"
+				></i>
+				&nbsp; &nbsp; &nbsp;
+				<span translate>provinces</span>
+				<i
+					class="fa fa-question-circle fa-lg"
+					uib-popover="{{ 'tooltip_provinces' | translate }}"
+					popover-trigger="outsideClick"
+					popover-placement="top"
+				></i>
+				&nbsp; &nbsp; &nbsp; <br />
+				<br />
+				<span translate>Watersheds</span>
+				<i
+					class="fa fa-question-circle fa-lg"
+					uib-popover="{{ 'tooltip_watersheds' | translate }}"
+					popover-trigger="outsideClick"
+					popover-placement="top"
+				></i>
+				&nbsp; &nbsp; &nbsp;
+				<span translate>indigenous_areas</span>
+				<i
+					class="fa fa-question-circle fa-lg"
+					uib-popover="{{ 'tooltip_indigenous_areas' | translate }}"
+					popover-trigger="outsideClick"
+					popover-placement="top"
+				></i>
+			</div>
+
+			<div>
+				<p
+					class="lead"
+					ng-bind-html="'landing_footnote' | translate | newlines"
+				></p>
+			</div>
 		</div>
 		<!-- /.content -->
 
