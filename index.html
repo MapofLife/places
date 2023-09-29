@@ -20,10 +20,10 @@
 			name="author"
 			content="Ajay Ranipeta, ajay@mol.org"
 		/>
-		<meta
+		<!-- <meta
 			http-equiv="Refresh"
 			content="5; url='https://www.mol.org/regions'"
-		/>
+		/> -->
 		<title ng-bind="'Map of Life - ' + $state.current.title"></title>
 		<link
 			rel="icon"
@@ -256,6 +256,11 @@
 					width: 95%;
 				}
 			}
+
+			.navigateNow {
+				font-size: 24px;
+				font-weight: 400;
+			}
 		</style>
 	</head>
 	<body
@@ -316,7 +321,12 @@
 				<!-- content -->
 				<div class="main-content container padded-block">
 					<div>
-						<h2>You will be redirected to our new application in 5 seconds.</h2>
+						<h2>You will be redirected to our new application in 5 seconds...</h2>
+						<a
+							href="https://mol.org/regions/"
+							class="navigateNow"
+							>Navigate there now</a
+						>
 					</div>
 				</div>
 			</div>
